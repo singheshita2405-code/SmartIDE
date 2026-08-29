@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartIDE - Roadmap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#d4e4fa",
+                        "surface-variant": "#273647",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary-container": "#00285d",
+                        "surface-container": "#122131",
+                        "surface": "#051424",
+                        "primary-container": "#4d8eff",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-on-surface": "#233143",
+                        "on-tertiary": "#2a303e",
+                        "inverse-surface": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#c4abff",
+                        "on-tertiary-fixed-variant": "#404756",
+                        "on-tertiary-container": "#232a37",
+                        "outline": "#8c909f",
+                        "secondary-fixed": "#e9ddff",
+                        "on-surface-variant": "#c2c6d6",
+                        "tertiary-fixed": "#dce2f5",
+                        "primary": "#adc6ff",
+                        "on-primary-fixed": "#001a42",
+                        "tertiary": "#c0c6d8",
+                        "surface-container-high": "#1c2b3c",
+                        "inverse-primary": "#005ac2",
+                        "surface-dim": "#051424",
+                        "tertiary-fixed-dim": "#c0c6d8",
+                        "secondary-container": "#571bc1",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary": "#d0bcff",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#273647",
+                        "on-primary": "#002e6a",
+                        "background": "#051424",
+                        "surface-tint": "#adc6ff",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#010f1f",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#8a91a1",
+                        "on-tertiary-fixed": "#151c29",
+                        "surface-container-low": "#0d1c2d",
+                        "outline-variant": "#424754",
+                        "surface-bright": "#2c3a4c",
+                        "on-secondary": "#3c0091",
+                        "on-background": "#d4e4fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter": "20px",
+                        "xl": "40px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xxl": "80px"
+                    },
+                    "fontFamily": {
+                        "code-sm": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "code-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "code-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "code-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap');
+        
+        body {
+            background-color: #0B0F19; /* Base Canvas */
+            color: #d4e4fa; /* on-background */
+        }
+        
+        .glass-panel {
+            background: rgba(19, 26, 39, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-line {
+            width: 2px;
+            background: linear-gradient(to bottom, #adc6ff 0%, #273647 100%);
+        }
+    </style>
+<link data-snapdom="injected-import" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/></head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-white/10 shadow-2xl">
+<div class="flex justify-between items-center px-lg py-md max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<img alt="SmartIDE Logo" class="h-8 w-8 rounded-sm object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
+<span class="font-headline-sm text-headline-sm font-bold text-on-background tracking-tight">SmartIDE</span>
+</div>
+<div class="hidden md:flex gap-lg items-center">
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">AI Assistant</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Roadmap</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Community</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="hidden md:block font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors">Sign In</button>
+<button class="bg-gradient-to-r from-primary to-secondary text-on-primary px-4 py-2 rounded font-body-md text-body-md font-bold shadow-[0_4px_14px_0_rgba(173,198,255,0.39)] hover:shadow-[0_6px_20px_rgba(173,198,255,0.23)] hover:bg-gradient-to-r hover:from-primary/90 hover:to-secondary/90 transition-all active:scale-95">Get Started</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[100px] pb-xxl px-md md:px-lg max-w-container-max mx-auto w-full relative">
+<!-- Subtle Background Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<!-- Header -->
+<header class="text-center mb-xl md:mb-xxl max-w-3xl mx-auto">
+<h1 class="font-display-lg text-display-lg text-on-background mb-md">Product <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Roadmap</span></h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Our vision for the future of development. See what we're building to keep you in the flow state.</p>
+</header>
+<!-- Timeline Section -->
+<section class="relative">
+<!-- Central Line (Desktop) -->
+<div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 timeline-line -z-10"></div>
+<div class="space-y-xl md:space-y-xxl">
+<!-- Q3: Planned (Left Aligned on Desktop) -->
+<div class="relative flex flex-col md:flex-row items-center md:justify-between w-full">
+<!-- Marker -->
+<div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-surface-container border-2 border-primary items-center justify-center z-10 shadow-[0_0_15px_rgba(173,198,255,0.5)]">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="w-full md:w-[45%] text-left md:text-right md:pr-xl mb-sm md:mb-0">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest mb-xs block">Q3 2024 • In Progress</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-sm">AI Coding Assistant V2</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Deeper context understanding, proactive refactoring suggestions, and natural language to code block generation.</p>
+<div class="flex flex-wrap gap-sm md:justify-end">
+<span class="font-code-sm text-code-sm bg-surface-variant text-on-surface px-2 py-1 rounded-sm border border-outline/30">NLP</span>
+<span class="font-code-sm text-code-sm bg-surface-variant text-on-surface px-2 py-1 rounded-sm border border-outline/30">Context-Aware</span>
+</div>
+</div>
+<div class="w-full md:w-[45%] glass-panel rounded-xl p-md shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative group overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img class="w-full h-48 object-cover rounded-lg border border-white/5 opacity-80 mix-blend-screen mb-sm" data-alt="A futuristic, high-contrast digital interface showing lines of code glowing with a soft blue and purple light on a dark navy background. The setting implies a highly advanced, intelligent IDE workspace. The visual style is premium corporate modern with a dark mode aesthetic, emphasizing focus and technical sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL2apF20tc1aEp1UgDHk5Q6qdEOOJdRD8sQXq_vWxK1-fz5ilVfmfw8iXib6HJhG1N-dTCYWxT2ksTYtlAVCLpzHRVsEJHI7oHhqv_oXARB_fu2azfmsbpbK7RvsDIqYPOKU6kW6xAUnvBlNqo5icNGSrbwpDb4Nlr4oldWypLxulkV4H5rlJyHIngUM4EozqBku3hf-hu48fMozh_qJ2c7brDxxWdMQ68PvyGimIsdovVrw0cby3Ztg"/>
+</div>
+</div>
+<!-- Q4: Planned (Right Aligned on Desktop) -->
+<div class="relative flex flex-col md:flex-row items-center md:justify-between w-full md:flex-row-reverse">
+<!-- Marker -->
+<div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-surface-container border-2 border-surface-variant items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+<div class="w-full md:w-[45%] text-left md:pl-xl mb-sm md:mb-0">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-xs block">Q4 2024 • Planned</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Seamless Git &amp; Cloud Deployment</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Visual branch management, conflict resolution UI, and one-click deployment to major cloud providers directly from the IDE.</p>
+<div class="flex flex-wrap gap-sm">
+<span class="font-code-sm text-code-sm bg-surface-variant text-on-surface px-2 py-1 rounded-sm border border-outline/30">CI/CD</span>
+<span class="font-code-sm text-code-sm bg-surface-variant text-on-surface px-2 py-1 rounded-sm border border-outline/30">Git Integration</span>
+</div>
+</div>
+<div class="w-full md:w-[45%] glass-panel rounded-xl p-md shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative group overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-bl from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img class="w-full h-48 object-cover rounded-lg border border-white/5 opacity-80 mix-blend-screen mb-sm" data-alt="A sophisticated abstract visualization of cloud deployment architecture and git branching. The scene features glowing interconnected nodes and soft glassmorphic panels floating against a deep, dark navy (#0B0F19) canvas. High-end, technical, dark-mode software design style with subtle white rim lighting to define edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvAqRwSvPj1Vs3sZDyB_ED39ekRrUscU4ihw6YwDLPAGpwsaDROBfZFP9FVNtbG42RWxSA5vLf2PDrqfoue_170pDcEAmTottc8Hj-ISMqpjWw-J3hDh3LurfR8G0Eix8KdWtr9tvrbg2CyJUELoLf2skNJE2i8t9H-aJ1q9NdLONwX5N2ejGOolwkVY4l5WbB4ThmBL51Yq4tZg_whQYC8P0JaqGyVcR3HTBdBsKj-kUlxesLk-bwBA"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-white/5">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-xl px-lg py-xxl max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface mb-sm block">SmartIDE</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md">© 2024 SmartIDE. Built for the flow state.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Products</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Resources</a>
+</div>
+<div class="flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Community</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Documentation</a>
+</div>
+<div class="flex flex-col gap-sm">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

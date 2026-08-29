@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartIDE - AI Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#d4e4fa",
+                      "surface-variant": "#273647",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-primary-container": "#00285d",
+                      "surface-container": "#122131",
+                      "surface": "#051424",
+                      "primary-container": "#4d8eff",
+                      "on-secondary-fixed": "#23005c",
+                      "inverse-on-surface": "#233143",
+                      "on-tertiary": "#2a303e",
+                      "inverse-surface": "#d4e4fa",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#c4abff",
+                      "on-tertiary-fixed-variant": "#404756",
+                      "on-tertiary-container": "#232a37",
+                      "outline": "#8c909f",
+                      "secondary-fixed": "#e9ddff",
+                      "on-surface-variant": "#c2c6d6",
+                      "tertiary-fixed": "#dce2f5",
+                      "primary": "#adc6ff",
+                      "on-primary-fixed": "#001a42",
+                      "tertiary": "#c0c6d8",
+                      "surface-container-high": "#1c2b3c",
+                      "inverse-primary": "#005ac2",
+                      "surface-dim": "#051424",
+                      "tertiary-fixed-dim": "#c0c6d8",
+                      "secondary-container": "#571bc1",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "secondary": "#d0bcff",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-highest": "#273647",
+                      "on-primary": "#002e6a",
+                      "background": "#051424",
+                      "surface-tint": "#adc6ff",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#010f1f",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#d8e2ff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "tertiary-container": "#8a91a1",
+                      "on-tertiary-fixed": "#151c29",
+                      "surface-container-low": "#0d1c2d",
+                      "outline-variant": "#424754",
+                      "surface-bright": "#2c3a4c",
+                      "on-secondary": "#3c0091",
+                      "on-background": "#d4e4fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "container-max": "1280px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "gutter": "20px",
+                      "xl": "40px",
+                      "base": "4px",
+                      "lg": "24px",
+                      "xxl": "80px"
+              },
+              "fontFamily": {
+                      "code-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "code-md": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "code-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "code-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background-color: rgba(19, 26, 39, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, theme('colors.primary'), theme('colors.secondary'));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, theme('colors.primary-container'), theme('colors.secondary-container'));
+            color: theme('colors.on-primary-container');
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid theme('colors.outline-variant');
+            color: theme('colors.primary');
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        .btn-ghost:hover {
+            background: theme('colors.surface-variant');
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden min-h-screen flex flex-col relative">
+<!-- Ambient Background Lighting -->
+<div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+<div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full"></div>
+</div>
+<!-- TopNavBar -->
+<nav class="bg-background/80 backdrop-blur-lg fixed top-0 w-full border-b border-white/10 shadow-2xl z-50">
+<div class="flex justify-between items-center px-lg py-md max-w-container-max mx-auto z-50">
+<div class="flex items-center gap-sm">
+<img alt="SmartIDE" class="h-8 w-8 rounded-DEFAULT" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
+<span class="font-headline-sm text-headline-sm font-bold text-on-background tracking-tight">SmartIDE</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Features</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">AI Assistant</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Roadmap</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Community</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="hidden md:block btn-ghost px-md py-sm font-body-sm text-body-sm active:scale-95 transition-transform">Sign In</button>
+<button class="btn-primary px-md py-sm font-body-sm text-body-sm active:scale-95 transition-transform flex items-center gap-xs hover:bg-[#7C3AED]" style="background-color: rgb(139, 92, 246); color: rgb(255, 255, 255);">
+                    Get Started
+                </button>
+<button class="text-primary hover:text-on-surface transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">download</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[100px]">
+<!-- Hero Section -->
+<section class="py-xxl px-lg max-w-container-max mx-auto text-center">
+<div class="inline-flex items-center gap-sm bg-surface-variant/50 border border-outline-variant rounded-full px-md py-xs mb-lg">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Meet SmartIDE AI</span>
+</div>
+<h1 class="font-display-lg text-display-lg mb-md max-w-3xl mx-auto">
+                Code at the Speed of Thought with <span class="" style="color: #000000;">Contextual AI</span>
+</h1>
+<p class="font-body-md text-body-md text-surface-container-lowest max-w-2xl mx-auto mb-xl">An intelligent pair programmer that lives in your editor. From generating boilerplate to explaining complex legacy logic, stay in the flow state longer.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-md">
+<button class="btn-primary px-lg py-md font-body-md text-body-md font-semibold hover:bg-[#7C3AED]" style="background-color: rgb(139, 92, 246); color: rgb(255, 255, 255);">Start Free Trial</button>
+<button class="btn-ghost px-lg py-md font-body-md text-body-md font-semibold">View Documentation</button>
+</div>
+</section>
+<!-- Visual / Mockup Section -->
+<section class="px-lg pb-xxl max-w-container-max mx-auto">
+<div class="relative rounded-xl border border-outline-variant overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.4)] bg-surface-container">
+<!-- Mac style header -->
+<div class="bg-surface-container-high px-md py-sm flex items-center border-b border-outline-variant">
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-error-container"></div>
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+</div>
+<div class="mx-auto font-code-sm text-code-sm text-on-surface-variant opacity-70">App.tsx — SmartIDE</div>
+</div>
+<div class="flex flex-col md:flex-row h-[500px]">
+<!-- Editor Side -->
+<div class="flex-grow p-md bg-surface font-code-md text-code-md overflow-hidden relative">
+<pre class="text-on-surface"><code><span class="text-primary-container">function</span> <span class="text-secondary-container">calculatePerformance</span>(data) {
+  <span class="text-on-surface-variant">// Processing complex dataset</span>
+  <span class="text-primary-container">const</span> result = data.reduce((acc, curr) =&gt; {
+    <span class="text-primary-container">return</span> acc + curr.value;
+  }, <span class="text-error">0</span>);
+  
+  <span class="text-primary-container">return</span> result;
+}</code></pre>
+<!-- AI Suggestion Overlay -->
+<div class="absolute top-20 left-10 right-10 glass-panel p-md rounded-lg inner-glow">
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-primary mt-xs">auto_awesome</span>
+<div>
+<p class="font-body-sm text-body-sm mb-sm font-semibold">AI Suggestion: Optimize Reduce</p>
+<p class="font-code-sm text-code-sm text-on-surface-variant mb-sm">Use a typed array for better performance if dealing with large numeric datasets.</p>
+<div class="flex gap-sm">
+<button class="bg-primary/20 text-primary px-sm py-xs rounded-DEFAULT font-code-sm text-code-sm hover:bg-primary/30 transition-colors">Accept</button>
+<button class="text-on-surface-variant px-sm py-xs font-code-sm text-code-sm hover:text-on-surface">Dismiss</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Chat Side -->
+<div class="w-full md:w-[320px] bg-surface-container-low border-l border-outline-variant flex flex-col">
+<div class="p-sm border-b border-outline-variant font-headline-sm text-headline-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined">chat</span> AI Assistant
+                        </div>
+<div class="flex-grow p-md overflow-y-auto flex flex-col gap-md">
+<div class="bg-surface-variant p-sm rounded-lg rounded-tr-none self-end max-w-[85%] inner-glow">
+<p class="font-body-sm text-body-sm">Can you explain what the calculatePerformance function does?</p>
+</div>
+<div class="bg-surface p-sm rounded-lg rounded-tl-none self-start max-w-[85%] border border-outline-variant inner-glow">
+<p class="font-body-sm text-body-sm mb-sm text-on-surface-variant">This function takes a dataset and calculates a total by summing up the 'value' property of each item using array.reduce.</p>
+</div>
+</div>
+<div class="p-sm border-t border-outline-variant">
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-DEFAULT py-sm pl-sm pr-lg text-body-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none placeholder:text-on-surface-variant/50" placeholder="Ask anything..." type="text"/>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-primary cursor-pointer hover:text-primary-container transition-colors">send</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest w-full border-t border-white/5">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-xl px-lg py-xxl max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-2 flex flex-col gap-md">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">SmartIDE</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-80">© 2024 SmartIDE. Built for the flow state.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-semibold mb-xs">Products</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">IDE</a>
+<a class="font-body-sm text-body-sm text-primary opacity-80 hover:opacity-100" href="#">AI Assistant</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-semibold mb-xs">Resources</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Documentation</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">API Ref</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-semibold mb-xs">Company</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Community</a>
+</div>
+<div class="flex flex-col gap-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-semibold mb-xs">Support</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Help Center</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

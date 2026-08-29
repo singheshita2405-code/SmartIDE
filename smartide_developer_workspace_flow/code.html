@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark text-on-background bg-background scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartIDE - One Workspace. Every Development Tool.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#d4e4fa",
+                      "surface-variant": "#273647",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-primary-container": "#00285d",
+                      "surface-container": "#122131",
+                      "surface": "#051424",
+                      "primary-container": "#4d8eff",
+                      "on-secondary-fixed": "#23005c",
+                      "inverse-on-surface": "#233143",
+                      "on-tertiary": "#2a303e",
+                      "inverse-surface": "#d4e4fa",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#c4abff",
+                      "on-tertiary-fixed-variant": "#404756",
+                      "on-tertiary-container": "#232a37",
+                      "outline": "#8c909f",
+                      "secondary-fixed": "#e9ddff",
+                      "on-surface-variant": "#c2c6d6",
+                      "tertiary-fixed": "#dce2f5",
+                      "primary": "#adc6ff",
+                      "on-primary-fixed": "#001a42",
+                      "tertiary": "#c0c6d8",
+                      "surface-container-high": "#1c2b3c",
+                      "inverse-primary": "#005ac2",
+                      "surface-dim": "#051424",
+                      "tertiary-fixed-dim": "#c0c6d8",
+                      "secondary-container": "#571bc1",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "secondary": "#d0bcff",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-highest": "#273647",
+                      "on-primary": "#002e6a",
+                      "background": "#051424",
+                      "surface-tint": "#adc6ff",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#010f1f",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#d8e2ff",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "tertiary-container": "#8a91a1",
+                      "on-tertiary-fixed": "#151c29",
+                      "surface-container-low": "#0d1c2d",
+                      "outline-variant": "#424754",
+                      "surface-bright": "#2c3a4c",
+                      "on-secondary": "#3c0091",
+                      "on-background": "#d4e4fa"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "container-max": "1280px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "gutter": "20px",
+                      "xl": "40px",
+                      "base": "4px",
+                      "lg": "24px",
+                      "xxl": "80px"
+              },
+              "fontFamily": {
+                      "code-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "code-md": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "code-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "code-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-panel {
+            background-color: rgba(19, 26, 39, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(90deg, #adc6ff, #d0bcff);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glow-border:hover::before {
+            opacity: 0.5;
+        }
+        .text-gradient {
+            background: linear-gradient(90deg, #adc6ff, #d0bcff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bg-mesh {
+            background-color: #051424;
+            background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,0.1) 0, transparent 50%);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-white/10 shadow-2xl transition-all duration-300" id="main-nav">
+<div class="flex justify-between items-center px-lg py-md max-w-container-max mx-auto h-20">
+<a class="flex items-center gap-sm group" href="#">
+<img alt="SmartIDE Logo" class="w-10 h-10 rounded-sm group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
+<span class="font-headline-sm text-headline-sm font-bold text-on-background tracking-tight">SmartIDE</span>
+</a>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#features">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#ai">AI Assistant</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#roadmap">Roadmap</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#community">Community</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#blog">Blog</a>
+</nav>
+<div class="hidden md:flex items-center gap-sm">
+<button class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface px-md py-sm rounded border border-transparent hover:border-surface-variant transition-all duration-200 active:scale-95">Sign In</button>
+<button class="font-body-md text-body-md bg-gradient-to-r from-primary to-secondary text-on-primary px-lg py-sm rounded shadow-[0_4px_14px_0_rgba(173,198,255,0.39)] hover:shadow-[0_6px_20px_rgba(173,198,255,0.23)] hover:brightness-110 transition-all duration-200 active:scale-95 flex items-center gap-xs" style="background: linear-gradient(90deg, rgb(139, 92, 246), rgb(124, 58, 237)); box-shadow: rgba(139, 92, 246, 0.39) 0px 4px 14px 0px;">
+                    Get Started
+                    <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+</button>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant hover:text-on-surface p-sm">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow pt-24 pb-xxl z-10">
+<!-- Hero Section -->
+<section class="relative pt-xl pb-xxl px-lg overflow-hidden bg-mesh">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDVlNWZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20"></div>
+<div class="max-w-container-max mx-auto text-center relative z-10 flex flex-col items-center">
+<div class="inline-flex items-center gap-xs px-md py-xs rounded-full border border-primary/30 bg-primary/10 text-primary font-label-caps text-label-caps mb-lg animate-fade-in-up">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                    SmartIDE 2.0 is now available
+                </div>
+<h1 class="font-display-lg text-display-lg md:text-[72px] md:leading-[80px] text-on-surface max-w-4xl mx-auto mb-lg animate-fade-in-up" style="animation-delay: 0.1s;">
+                    One Workspace.<br/>
+<span class="text-gradient">Every Development Tool.</span>
+</h1>
+<p class="font-body-md text-body-md md:text-[20px] md:leading-[32px] text-on-surface-variant max-w-2xl mx-auto mb-xl animate-fade-in-up" style="animation-delay: 0.2s;">
+                    SmartIDE combines code editing, project management, databases, terminal, live preview, package management and AI assistance into a unified development environment. Built for the flow state.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-md animate-fade-in-up" style="animation-delay: 0.3s;">
+<button class="w-full sm:w-auto font-body-md text-body-md bg-gradient-to-r from-primary to-secondary text-on-primary px-xl py-md rounded shadow-[0_0_30px_rgba(173,198,255,0.3)] hover:shadow-[0_0_40px_rgba(173,198,255,0.5)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-sm" style="background: linear-gradient(90deg, rgb(139, 92, 246), rgb(124, 58, 237)); box-shadow: rgba(139, 92, 246, 0.3) 0px 0px 30px;">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Download SmartIDE
+                    </button>
+<button class="w-full sm:w-auto font-body-md text-body-md bg-surface-container-high/50 backdrop-blur-md border border-white/10 text-on-surface px-xl py-md rounded hover:bg-surface-container-highest transition-colors duration-200 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
+                        Watch Demo
+                    </button>
+<a class="w-full sm:w-auto font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200 py-md text-center" href="#features">
+                        View Features →
+                    </a>
+</div>
+</div>
+<!-- IDE Showcase Mockup -->
+<div class="mt-xxl max-w-5xl mx-auto relative perspective-1000 animate-fade-in-up" style="animation-delay: 0.5s;">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-20"></div>
+<div class="relative rounded-xl border border-white/10 bg-[#0B0F19] shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col h-[600px]">
+<!-- Window Controls -->
+<div class="h-8 bg-[#131A27] flex items-center px-sm border-b border-[#1E293B]">
+<div class="flex gap-xs">
+<div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+</div>
+<div class="flex-grow text-center flex justify-center items-center gap-sm text-[12px] text-on-surface-variant font-code-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span> src/main.rs - SmartIDE
+                        </div>
+</div>
+<!-- IDE Content -->
+<div class="flex flex-grow overflow-hidden">
+<!-- Sidebar -->
+<div class="w-[50px] bg-[#0B0F19] border-r border-[#1E293B] flex flex-col items-center py-md gap-md text-on-surface-variant">
+<div class="p-xs rounded bg-primary-container/10 text-primary cursor-pointer hover:text-primary"><span class="material-symbols-outlined text-[24px]">folder</span></div>
+<div class="p-xs rounded hover:bg-surface-variant cursor-pointer hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">search</span></div>
+<div class="p-xs rounded hover:bg-surface-variant cursor-pointer hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">account_tree</span></div>
+<div class="p-xs rounded hover:bg-surface-variant cursor-pointer hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">database</span></div>
+<div class="p-xs rounded hover:bg-surface-variant cursor-pointer hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">extension</span></div>
+<div class="mt-auto p-xs rounded hover:bg-surface-variant cursor-pointer hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[24px]">settings</span></div>
+</div>
+<!-- File Explorer -->
+<div class="w-[200px] bg-[#131A27] border-r border-[#1E293B] flex flex-col">
+<div class="px-md py-sm text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Explorer</div>
+<div class="flex flex-col font-code-sm text-code-sm text-on-surface-variant">
+<div class="px-md py-1 flex items-center gap-xs cursor-pointer hover:bg-surface-variant"><span class="material-symbols-outlined text-[16px]">expand_more</span> src</div>
+<div class="px-lg py-1 flex items-center gap-xs cursor-pointer bg-primary/10 text-primary border-l-2 border-primary"><span class="material-symbols-outlined text-[16px]">description</span> main.rs</div>
+<div class="px-lg py-1 flex items-center gap-xs cursor-pointer hover:bg-surface-variant"><span class="material-symbols-outlined text-[16px]">description</span> utils.rs</div>
+<div class="px-lg py-1 flex items-center gap-xs cursor-pointer hover:bg-surface-variant"><span class="material-symbols-outlined text-[16px]">description</span> server.rs</div>
+<div class="px-md py-1 mt-sm flex items-center gap-xs cursor-pointer hover:bg-surface-variant"><span class="material-symbols-outlined text-[16px]">chevron_right</span> tests</div>
+<div class="px-md py-1 flex items-center gap-xs cursor-pointer hover:bg-surface-variant"><span class="material-symbols-outlined text-[16px]">description</span> Cargo.toml</div>
+</div>
+</div>
+<!-- Main Editor Area -->
+<div class="flex-grow flex flex-col bg-[#0B0F19]">
+<!-- Tabs -->
+<div class="flex bg-[#131A27] border-b border-[#1E293B] overflow-x-auto">
+<div class="px-md py-sm flex items-center gap-sm bg-[#0B0F19] text-primary border-t-2 border-primary min-w-[120px] font-code-sm text-code-sm cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">description</span> main.rs <span class="material-symbols-outlined text-[14px] ml-auto hover:bg-surface-variant rounded-full">close</span>
+</div>
+<div class="px-md py-sm flex items-center gap-sm text-on-surface-variant min-w-[120px] font-code-sm text-code-sm cursor-pointer hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[14px]">description</span> Cargo.toml <span class="material-symbols-outlined text-[14px] ml-auto hover:bg-surface-variant rounded-full">close</span>
+</div>
+</div>
+<!-- Editor Content -->
+<div class="flex-grow p-md font-code-md text-code-md overflow-y-auto relative group">
+<button class="absolute top-md right-md bg-[#131A27] border border-[#1E293B] text-on-surface-variant px-sm py-xs rounded opacity-0 group-hover:opacity-100 transition-opacity hover:text-on-surface flex items-center gap-xs text-[12px]">
+<span class="material-symbols-outlined text-[14px]">content_copy</span> Copy
+                                </button>
+<div class="flex">
+<div class="text-[#424754] text-right pr-md select-none flex flex-col">
+<span class="">1</span><span class="">2</span><span class="">3</span><span class="">4</span><span class="">5</span><span class="">6</span><span class="">7</span><span class="">8</span><span class="">9</span><span class="">10</span>
+</div>
+<div class="text-[#c2c6d6] flex-grow font-mono whitespace-pre">
+<span class="text-[#c4abff]">use</span> axum::{
+    routing::{get, post},
+    http::StatusCode,
+    Json, Router,
+};
+<span class="text-[#c4abff]">use</span> serde::{Deserialize, Serialize};
+
+<span class="text-[#c4abff]">#[tokio::main]</span>
+<span class="text-[#adc6ff]">async fn</span> <span class="text-[#d0bcff]">main</span>() {
+    <span class="text-[#8c909f]">// Initialize tracing</span>
+    tracing_subscriber::fmt::init();
+                                    </div>
+</div>
+</div>
+<!-- Terminal Panel -->
+<div class="h-[150px] border-t border-[#1E293B] bg-[#0B0F19] flex flex-col">
+<div class="flex px-md py-xs border-b border-[#1E293B] gap-md text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">
+<span class="cursor-pointer hover:text-on-surface">Problems</span>
+<span class="cursor-pointer hover:text-on-surface">Output</span>
+<span class="text-primary border-b border-primary cursor-pointer">Terminal</span>
+</div>
+<div class="p-sm font-code-sm text-code-sm text-on-surface-variant flex-grow overflow-y-auto">
+<div class="text-[#27C93F]">user@smartide:~/projects/api$ cargo run</div>
+<div class="text-[#c2c6d6]">   Compiling api v0.1.0 (/projects/api)</div>
+<div class="text-[#c2c6d6]">    Finished dev [unoptimized + debuginfo] target(s) in 1.45s</div>
+<div class="text-[#c2c6d6]">     Running `target/debug/api`</div>
+<div class="text-[#adc6ff]">Listening on http://127.0.0.1:3000</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 w-full">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-xl px-lg py-xxl max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-2">
+<a class="flex items-center gap-sm mb-md group" href="#">
+<img alt="SmartIDE Logo" class="w-8 h-8 rounded-sm group-hover:scale-105 transition-transform duration-300 grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight opacity-80">SmartIDE</span>
+</a>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md max-w-xs">Built for the flow state. The ultimate unified workspace for modern software engineering.</p>
+<div class="font-body-sm text-body-sm text-on-surface-variant opacity-80">© 2024 SmartIDE.</div>
+</div>
+<div class="flex flex-col gap-md">
+<h4 class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Products</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">SmartIDE Desktop</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">SmartIDE Cloud</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Extensions</a>
+</div>
+<div class="flex flex-col gap-md">
+<h4 class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Resources</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Documentation</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Blog</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Community</a>
+</div>
+<div class="flex flex-col gap-md">
+<h4 class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Company</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">About</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Careers</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-md">
+<h4 class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Legal</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll effect for navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-2xl', 'bg-background/90');
+                nav.classList.remove('bg-background/80');
+            } else {
+                nav.classList.remove('shadow-2xl', 'bg-background/90');
+                nav.classList.add('bg-background/80');
+            }
+        });
+    </script>
+</body></html>

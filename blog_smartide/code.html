@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartIDE - Blog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#d4e4fa",
+                        "surface-variant": "#273647",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary-container": "#00285d",
+                        "surface-container": "#122131",
+                        "surface": "#051424",
+                        "primary-container": "#4d8eff",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-on-surface": "#233143",
+                        "on-tertiary": "#2a303e",
+                        "inverse-surface": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#c4abff",
+                        "on-tertiary-fixed-variant": "#404756",
+                        "on-tertiary-container": "#232a37",
+                        "outline": "#8c909f",
+                        "secondary-fixed": "#e9ddff",
+                        "on-surface-variant": "#c2c6d6",
+                        "tertiary-fixed": "#dce2f5",
+                        "primary": "#adc6ff",
+                        "on-primary-fixed": "#001a42",
+                        "tertiary": "#c0c6d8",
+                        "surface-container-high": "#1c2b3c",
+                        "inverse-primary": "#005ac2",
+                        "surface-dim": "#051424",
+                        "tertiary-fixed-dim": "#c0c6d8",
+                        "secondary-container": "#571bc1",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "secondary": "#d0bcff",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#273647",
+                        "on-primary": "#002e6a",
+                        "background": "#051424",
+                        "surface-tint": "#adc6ff",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#010f1f",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#8a91a1",
+                        "on-tertiary-fixed": "#151c29",
+                        "surface-container-low": "#0d1c2d",
+                        "outline-variant": "#424754",
+                        "surface-bright": "#2c3a4c",
+                        "on-secondary": "#3c0091",
+                        "on-background": "#d4e4fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "gutter": "20px",
+                        "xl": "40px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xxl": "80px"
+                    },
+                    "fontFamily": {
+                        "code-sm": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "code-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "code-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "code-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(19, 26, 39, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #adc6ff, #d0bcff);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container overflow-y-auto">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full bg-background/80 backdrop-blur-lg border-b border-white/10 shadow-2xl z-50 transition-all duration-300" id="main-nav">
+<div class="flex justify-between items-center px-lg py-md max-w-container-max mx-auto z-50">
+<div class="flex items-center gap-sm">
+<img alt="SmartIDE Logo" class="h-8 w-8 rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
+<span class="font-headline-sm text-headline-sm font-bold text-on-background tracking-tight">SmartIDE</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Features</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">AI Assistant</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Roadmap</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Community</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Blog</a>
+</div>
+<div class="flex items-center gap-md">
+<a class="hidden lg:block text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Sign In</a>
+<button class="bg-gradient-to-r from-primary to-secondary text-on-primary-fixed rounded px-md py-sm font-body-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Get Started</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-weight="fill">download</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-[100px]">
+<div class="max-w-container-max mx-auto px-lg">
+<!-- Page Header -->
+<header class="py-xl md:py-xxl text-center max-w-3xl mx-auto">
+<h1 class="font-display-lg text-display-lg text-gradient mb-md">Engineering Flow</h1>
+<p class="font-body-md text-on-surface-variant">Insights, updates, and deep dives into the architecture of modern software development. Built for the flow state.</p>
+</header>
+<!-- Featured Article -->
+<section class="mb-xxl">
+<div class="glass-panel rounded-xl overflow-hidden group cursor-pointer relative">
+<div class="grid md:grid-cols-2 gap-0 relative z-10">
+<div class="h-64 md:h-auto w-full bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A highly detailed conceptual image representing abstract code syntax trees rendered as glowing neon geometric structures floating in a dark, infinite virtual space. The visual style is premium, high-tech, and 'dark mode' optimized, utilizing deep navy blue and intense glowing purple gradients to match a modern developer environment. The lighting is dramatic and creates a sense of profound technical depth." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIXymqJ72Z1-NDAxR0Wi9DbMbDo5j4IRWGFeaCKQsOlGcdeC4GpVuIzJ0GB7pQAfBXmgrgx1wK_1j-gJFSEMv58hjLKRCHJHzU9lCdT0PHEIFZeEa_LbxyS9Xp__dgGtyeQMKPEm3JFfRbMsh8y8IkxHHWGcKCzNBAfnvqgV3IB9CfNkksheoRYCC3EjH-736_lXfMD59F8sT1u7Yt5gHJW_KaqDA0AQ5Fh1gpVdP8qH10td7Ap5ph1Q')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent md:bg-gradient-to-r"></div>
+</div>
+<div class="p-lg md:p-xl flex flex-col justify-center bg-secondary-container/30 backdrop-blur-sm">
+<div class="flex items-center gap-sm mb-md">
+<span class="bg-surface-variant text-primary font-code-sm text-code-sm px-sm py-xs rounded">Architecture</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Oct 24, 2024</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-md group-hover:text-primary transition-colors">Redesigning the AST Parser for Real-time Intellisense</h2>
+<p class="font-body-md text-on-surface-variant mb-lg line-clamp-3">How we rebuilt our core parsing engine from the ground up to support sub-millisecond response times across million-line codebases, utilizing advanced WebAssembly techniques and parallel worker threads.</p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline/30 flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A professional headshot of a female software architect in her 30s. The lighting is studio quality, dramatic, and 'dark mode' themed with subtle blue rim lighting reflecting off her glasses. She is looking slightly off-camera with a focused, intelligent expression. The background is a very dark, indistinct technical environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCsCDY_BTF9N7CB0xr9ldhVPT2oHSseSATYjIaF41sIzwFdzeRq4Sr95v3JfDgFeThj7Onf-zHMalRQfIldTzYK1htZ9WfocFxhEJAq8MVYxMdN0ziLVSMR2pffPAefGQ0-vBiXjWXJAeNKtHq6MtYd2ttsSy1RjhjnVtnH-eEUyoCp-irnmWo3nMeeRsxerQO4g356mAhfXclcAIoPfL3rVabIOg1wAx8lWG-z8Z515HxJweKCU6tcA')"></div>
+</div>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Sarah Chen</span>
+</div>
+<span class="text-primary font-body-sm font-semibold flex items-center gap-xs group-hover:translate-x-1 transition-transform">
+                                    Read Article <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid & Sidebar Layout -->
+<div class="grid lg:grid-cols-12 gap-lg mb-xxl">
+<!-- Latest Articles Grid -->
+<div class="lg:col-span-8">
+<div class="flex justify-between items-end mb-lg border-b border-surface-variant pb-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Latest Articles</h3>
+<div class="flex gap-sm">
+<!-- Tabs for future expansion, currently static -->
+<button class="font-body-sm text-body-sm text-primary border-b-2 border-primary pb-sm px-xs">All</button>
+<button class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pb-sm px-xs transition-colors">Releases</button>
+<button class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pb-sm px-xs transition-colors">Tutorials</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-lg">
+<!-- Article Card 1 -->
+<article class="glass-panel rounded-lg overflow-hidden group flex flex-col hover:-translate-y-1 transition-transform duration-300">
+<div class="h-48 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A close-up macro shot of a computer motherboard integrated with glowing fiber optic cables. The colors are dominated by deep slate greys, pure blacks, and brilliant glowing blue accents. The depth of field is shallow, creating a soft bokeh effect in the background while keeping the intricate circuitry razor-sharp. The aesthetic is strictly premium dark mode technical." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDydYp18uZLcNR6tLtgT0c5Nzqxch--46BXW7IpeEqnBtfk6WUoIBwnu_GtkSO4973N1jQOApgm98EhO4XQYtAEh_khUjfHx5bvsb-Jg5CDpVrmazB90-Bzy4A938YbNppcAakf5HJcN8A-KxUKl6jd2hsA-jds3xqkVNoyEX8TXhjhnU2tVvijlkmH9WpvqXSGAMf-m5Yb6rgYhrVSUhk_IqoKG98tj-8tju6Z2DoOw2_R4how1kz13g')"></div>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface/50">
+<div class="mb-sm">
+<span class="text-secondary font-code-sm text-code-sm">Release Notes</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">SmartIDE v2.4: The AI Evolution</h4>
+<p class="font-body-sm text-on-surface-variant mb-md flex-grow">Introducing context-aware code generation, deep project understanding, and seamless integration with our new neural completion engine.</p>
+<div class="flex items-center gap-sm mt-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Oct 18, 2024</span>
+<span class="w-1 h-1 rounded-full bg-surface-variant"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">4 min read</span>
+</div>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="glass-panel rounded-lg overflow-hidden group flex flex-col hover:-translate-y-1 transition-transform duration-300">
+<div class="h-48 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A stylized, minimalist illustration of overlapping transparent glass panes reflecting lines of code. The color palette features deep navy background (#051424) with frosted white and pale purple (#d0bcff) glassmorphic layers. The design should feel clean, modern, and highly structural, suitable for representing UI/UX design in a dark-mode developer tool context." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBv2DXRSH5alo1R8U3uOwvYo4gnY5egO6SoNz4rqzL0KLj2QdSzhcG_3CyytQXHMuBG4oU6czNsTi0WQmzsPqXTViyKPPs2yrOt0fvpTmifjiLpWGXC7jauf0XP39ZCNoFQB_BbhSw6HVUz6hSFYI-pupZKVZhVuZPWY65q4B6xM9czdujtN2P3JXZqzf_DQM8ZnnsoKd6l_iHBsoHle27ZxuVOWF4iBddJubEKfE25kkiwZ0QOA0Zc1Q')"></div>
+</div>
+<div class="p-md flex flex-col flex-grow bg-surface/50">
+<div class="mb-sm">
+<span class="text-emerald-400 font-code-sm text-code-sm">UX/UI</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">Designing for the Flow State</h4>
+<p class="font-body-sm text-on-surface-variant mb-md flex-grow">Why we chose a dark-mode-first aesthetic, 4px baseline grids, and glassmorphic panels to reduce cognitive load during marathon coding sessions.</p>
+<div class="flex items-center gap-sm mt-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Oct 12, 2024</span>
+<span class="w-1 h-1 rounded-full bg-surface-variant"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">6 min read</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-lg mt-xl lg:mt-0">
+<!-- Search -->
+<div class="glass-panel rounded-lg p-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface border border-surface-variant rounded-md py-sm pl-xl pr-md font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search articles..." type="text"/>
+</div>
+</div>
+<!-- Categories -->
+<div class="glass-panel rounded-lg p-md">
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-md">Categories</h4>
+<ul class="space-y-sm">
+<li class="">
+<a class="flex justify-between items-center group" href="#">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">Architecture</span>
+<span class="font-code-sm text-code-sm text-surface-variant bg-surface px-xs rounded">12</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center group" href="#">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">Release Notes</span>
+<span class="font-code-sm text-code-sm text-surface-variant bg-surface px-xs rounded">24</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center group" href="#">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">Tutorials</span>
+<span class="font-code-sm text-code-sm text-surface-variant bg-surface px-xs rounded">8</span>
+</a>
+</li>
+<li class="">
+<a class="flex justify-between items-center group" href="#">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">Engineering Culture</span>
+<span class="font-code-sm text-code-sm text-surface-variant bg-surface px-xs rounded">5</span>
+</a>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 w-full mt-auto">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-xl px-lg py-xxl max-w-container-max mx-auto">
+<div class="col-span-2 md:col-span-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface block mb-md">SmartIDE</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg max-w-xs">© 2024 SmartIDE. Built for the flow state.</p>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-md">Links</h4>
+<ul class="space-y-sm">
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Products</a></li>
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Resources</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-md">Community</h4>
+<ul class="space-y-sm">
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Community</a></li>
+<li class=""><a class="font-body-sm text-body-sm text-primary hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Blog</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-md">Support</h4>
+<ul class="space-y-sm">
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Documentation</a></li>
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors opacity-80 hover:opacity-100" href="#">Support</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll effect for navbar
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-2xl');
+                nav.classList.replace('bg-background/80', 'bg-background/95');
+            } else {
+                nav.classList.remove('shadow-2xl');
+                nav.classList.replace('bg-background/95', 'bg-background/80');
+            }
+        });
+    </script>
+</body></html>
