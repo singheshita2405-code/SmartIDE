@@ -20,6 +20,11 @@ class User(db.Model):
 with app.app_context(): 
     db.create_all()
 
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -92,7 +97,94 @@ def login():
             flash('Invalid email or password.', 'error')
     return render_template('login.html')
 
+#smartide dashboard
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+from flask import Flask, request, jsonify, render_template
+import os
+
+app = Flask(__name__)
+
+WORKSPACE = "workspace"
+os.makedirs(WORKSPACE, exist_ok=True)
+
+
+@app.route("/")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+# ==========================
+# NEW FILE
+# ==========================
+@app.route("/new-file", methods=["POST"])
+def new_file():
+
+    data = request.get_json()
+
+    filename = data.get("filename")
+
+    if not filename:
+        return jsonify({
+            "success": False,
+            "message": "Filename required"
+        })
+
+    filepath = os.path.join(
+        WORKSPACE,
+        filename
+    )
+
+    try:
+
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write("")
+
+        return jsonify({
+            "success": True,
+            "message": "File created",
+            "filename": filename
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        })
+
+# ==========================
+# NEW FOLDER
+# ==========================
+@app.route("/open-folder/<foldername>", methods=["GET"])
+def open_folder(foldername):
+
+    folder_path = os.path.join(
+        WORKSPACE,
+        foldername
+    )
+
+    if not os.path.exists(folder_path):
+
+        return jsonify({
+            "success": False,
+            "message": "Folder not found"
+        })
+
+    files = []
+
+    for item in os.listdir(folder_path):
+        files.append(item)
+
+    return jsonify({
+        "success": True,
+        "folder": foldername,
+        "files": files
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
-    

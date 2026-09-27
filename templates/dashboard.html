@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartIDE Dashboard</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#111111;
+    color:#eeeeee;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+.dashboard-container{
+    display:flex;
+    gap:150px;
+    padding:120px 12% 60px;
+}
+
+h1{
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:25px;
+}
+
+.start-section{
+    width:430px;
+}
+
+.start-button{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    width:100%;
+    padding:13px 10px;
+    margin-bottom:4px;
+    background:transparent;
+    border:none;
+    border-radius:6px;
+    color:#4db8ff;
+    font-size:16px;
+    text-align:left;
+    cursor:pointer;
+}
+
+.start-button:hover{
+    background:#252525;
+}
+
+.icon{
+    width:25px;
+    font-size:20px;
+    text-align:center;
+}
+
+.walkthrough-section{
+    width:550px;
+}
+
+.walkthrough-card{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:#292929;
+    border-radius:8px;
+    padding:20px;
+    margin-bottom:12px;
+    min-height:70px;
+}
+
+.walkthrough-card h2{
+    margin:0 0 8px;
+    font-size:16px;
+    font-weight:500;
+}
+
+.walkthrough-card p{
+    margin:0;
+    color:#bbbbbb;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.card-icon{
+    font-size:22px;
+    width:30px;
+}
+
+.updated{
+    display:inline-block;
+    background:#1683b5;
+    padding:4px 8px;
+    border-radius:5px;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.recent-section{
+    margin-left:12%;
+    width:700px;
+}
+
+.recent-project{
+    display:flex;
+    flex-direction:column;
+    padding:9px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.recent-project:hover{
+    background:#222222;
+}
+
+.project-name{
+    color:#4db8ff;
+    font-size:16px;
+}
+
+.project-path{
+    color:#888888;
+    font-size:13px;
+    margin-top:4px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <section class="start-section">
+        <h1>Start</h1>
+
+        <button id="newFileBtn" class="start-button">
+            <span class="icon">＋</span>
+            <span>New File...</span>
+        </button>
+
+        <button id="openFileBtn" class="start-button">
+            <span class="icon">📄</span>
+            <span>Open File...</span>
+        </button>
+
+        <button id="openFolderBtn" class="start-button">
+            <span class="icon">📁</span>
+            <span>Open Folder...</span>
+        </button>
+
+        <button id="newFolderBtn" class="start-button">
+            <span class="icon">📂</span>
+            <span>New Folder...</span>
+        </button>
+
+        <button class="start-button">
+            <span class="icon">⌘</span>
+            <span>Clone Git Repository...</span>
+        </button>
+
+        <button class="start-button">
+            <span class="icon">↪</span>
+            <span>Connect to...</span>
+        </button>
+
+        <button class="start-button">
+            <span class="icon">✦</span>
+            <span>Generate New Workspace...</span>
+        </button>
+    </section>
+
+    <section class="walkthrough-section">
+        <h1>Walkthroughs</h1>
+
+        <div class="walkthrough-card">
+            <div class="card-icon">★</div>
+            <div>
+                <h2>Get started with SmartIDE</h2>
+                <p>
+                    Customize your development environment,
+                    learn the basics, and start coding.
+                </p>
+            </div>
+        </div>
+
+        <div class="walkthrough-card">
+            <div class="card-icon">💡</div>
+            <div>
+                <h2>Learn the Fundamentals</h2>
+            </div>
+        </div>
+
+        <div class="walkthrough-card">
+            <div class="card-icon">🐍</div>
+            <div>
+                <h2>Get Started with Python Development</h2>
+                <span class="updated">Updated</span>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<section class="recent-section">
+    <h1>Recent</h1>
+    <div id="recentProjects"></div>
+</section>
+
+<!-- Hidden Inputs -->
+<input type="file" id="fileInput" hidden>
+
+<input
+type="file"
+id="folderInput"
+webkitdirectory
+multiple
+hidden>
+
+<script>
+
+const fileInput = document.getElementById("fileInput");
+const folderInput = document.getElementById("folderInput");
+
+const recentProjects = [
+{
+    name: "smartide_software_portal",
+    path: "C:\\Users\\singh\\Desktop"
+},
+{
+    name: "BCA website project",
+    path: "C:\\Users\\singh\\Desktop"
+},
+{
+    name: "SmartIDE project",
+    path: "C:\\Users\\singh\\Desktop"
+}
+];
+
+const recentContainer =
+document.getElementById("recentProjects");
+
+function addRecentProject(project){
+
+    const element =
+    document.createElement("div");
+
+    element.className =
+    "recent-project";
+
+    element.innerHTML = `
+        <span class="project-name">
+            📁 ${project.name}
+        </span>
+
+        <span class="project-path">
+            ${project.path}
+        </span>
+    `;
+
+    recentContainer.prepend(element);
+}
+
+recentProjects.forEach(function(project){
+    addRecentProject(project);
+});
+
+document
+.getElementById("newFileBtn")
+.addEventListener("click", function () {
+
+    const fileName =
+    prompt("Enter file name:");
+
+    if(fileName){
+
+        addRecentProject({
+            name:fileName,
+            path:"Unsaved File"
+        });
+
+        alert("File Created: " + fileName);
+    }
+});
+
+document
+.getElementById("openFileBtn")
+.addEventListener("click", function () {
+
+    fileInput.click();
+
+});
+
+fileInput.addEventListener("change", function(){
+
+    if(this.files.length > 0){
+
+        const file = this.files[0];
+
+        addRecentProject({
+            name:file.name,
+            path:file.name
+        });
+
+        alert("Opened File: " + file.name);
+    }
+
+});
+
+document
+.getElementById("openFolderBtn")
+.addEventListener("click", function(){
+
+    folderInput.click();
+
+});
+
+folderInput.addEventListener("change", function(){
+
+    if(this.files.length > 0){
+
+        const folderName =
+        this.files[0].webkitRelativePath.split("/")[0];
+
+        addRecentProject({
+            name:folderName,
+            path:"Folder"
+        });
+
+        alert("Opened Folder: " + folderName);
+    }
+
+});
+
+document
+.getElementById("newFolderBtn")
+.addEventListener("click", function(){
+
+    const folderName =
+    prompt("Enter folder name:");
+
+    if(folderName){
+
+        addRecentProject({
+            name:folderName,
+            path:"New Folder"
+        });
+
+        alert("Folder Created: " + folderName);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
