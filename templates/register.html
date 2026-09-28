@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — SmartIDE Desktop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --peach-50: #fff9f5;
+      --peach-100: #fff0e6;
+      --peach-200: #ffe4d2;
+      --peach-300: #ffcfb2;
+      --peach-400: #ffa574;
+      --peach-500: #ff7836;
+      --peach-600: #f05a18;
+      --warm-white: #fffdfb;
+      --text-dark: #2b1810;
+      --text-medium: #613c2c;
+      --text-light: #946956;
+      --border: rgba(255, 120, 54, 0.16);
+      --border-strong: rgba(255, 120, 54, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .bg-half {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(145deg, #fffaf6 0%, #ffe8dc 100%);
+      z-index: 0;
+    }
+
+    .left-panel {
+      position: relative;
+      z-index: 1;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+    }
+    .left-panel .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #ffa574, #f05a18);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 16px rgba(240, 90, 24, 0.3);
+    }
+    .logo-text {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #d64508, #ff7836);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .ide-preview {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(240, 90, 24, 0.12);
+    }
+    .ide-bar {
+      height: 36px;
+      background: #fff8f3;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+    }
+    .tls { display: flex; gap: 7px; }
+    .tl { width: 11px; height: 11px; border-radius: 50%; }
+    .tl-r { background: #ff5f56; }
+    .tl-y { background: #ffbd2e; }
+    .tl-g { background: #27c93f; }
+    .ide-content {
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2b1810;
+      background: #ffffff;
+    }
+    .kw { color: #d64508; font-weight: 600; }
+    .str { color: #15803d; }
+    .fn { color: #d97706; }
+    .cm { color: #946956; font-style: italic; }
+
+    .tagline {
+      margin-top: 36px;
+      text-align: center;
+      max-width: 440px;
+    }
+    .tagline h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .tagline p {
+      font-size: 15px;
+      color: var(--text-medium);
+      line-height: 1.5;
+    }
+
+    /* Right Panel */
+    .right-panel {
+      position: relative;
+      z-index: 1;
+      width: 50%;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      overflow-y: auto;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-header h1 {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .form-header p {
+      font-size: 15px;
+      color: var(--text-medium);
+    }
+
+    .flash-msg {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flash-error {
+      background: #fff1f0;
+      border: 1px solid #ffa39e;
+      color: #cf1322;
+    }
+    .flash-success {
+      background: #f6ffed;
+      border: 1px solid #b7eb8f;
+      color: #389e0d;
+    }
+
+    form {
+      width: 100%;
+      max-width: 420px;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-medium);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap .icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 20px;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 14px 12px 44px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--peach-50);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .field input:focus {
+      border-color: var(--peach-500);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 120, 54, 0.14);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #ff7836, #f05a18);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(240, 90, 24, 0.3);
+      margin-top: 10px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(240, 90, 24, 0.45);
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .signup-link {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-medium);
+    }
+    .signup-link a {
+      color: var(--peach-600);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media(max-width: 900px) {
+      body { flex-direction: column; }
+      .bg-half { display: none; }
+      .left-panel { display: none; }
+      .right-panel { width: 100%; padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-half"></div>
+
+<div class="left-panel">
+  <a href="{{ url_for('home') }}" class="logo">
+    <div class="logo-icon"><span class="material-symbols-outlined" style="font-size:24px;">terminal</span></div>
+    <span class="logo-text">SmartIDE</span>
+  </a>
+
+  <div class="ide-preview">
+    <div class="ide-bar">
+      <div class="tls"><div class="tl tl-r"></div><div class="tl tl-y"></div><div class="tl tl-g"></div></div>
+      <span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-light); margin-left:10px;">create_profile.py</span>
+    </div>
+    <div class="ide-content">
+<span class="cm"># Setting up your developer account</span>
+<span class="kw">def</span> <span class="fn">setup_developer</span>(username: <span class="str">str</span>):
+    return {
+        <span class="str">"theme"</span>: <span class="str">"Peach & White"</span>,
+        <span class="str">"edition"</span>: <span class="str">"v2.4.1 Desktop"</span>,
+        <span class="str">"status"</span>: <span class="str">"Active"</span>
+    }
+    </div>
+  </div>
+
+  <div class="tagline">
+    <h2>Start Coding in Seconds</h2>
+    <p>Unlock cross-platform cloud sync, custom extensions, and personalized settings.</p>
+  </div>
+</div>
+
+<div class="right-panel">
+  <div class="form-header">
+    <h1>Create an Account</h1>
+    <p>Join SmartIDE and access the Peach & White workspace</p>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash-msg flash-{{ category }}">
+          <span class="material-symbols-outlined" style="font-size:18px;">
+            {{ 'check_circle' if category == 'success' else 'error' }}
+          </span>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="{{ url_for('register') }}">
+    <div class="field">
+      <label for="name">Full Name</label>
+      <div class="input-wrap">
+        <span class="material-symbols-outlined icon">person</span>
+        <input type="text" id="name" name="name" placeholder="Ada Lovelace" required autofocus>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email Address</label>
+      <div class="input-wrap">
+        <span class="material-symbols-outlined icon">mail</span>
+        <input type="email" id="email" name="email" placeholder="dev@smartide.io" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="password">Password (min 8 chars, letters & numbers)</label>
+      <div class="input-wrap">
+        <span class="material-symbols-outlined icon">lock</span>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="confirm_password">Confirm Password</label>
+      <div class="input-wrap">
+        <span class="material-symbols-outlined icon">lock_clock</span>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Create SmartIDE Account</button>
+
+    <div class="divider"><span>or</span></div>
+
+    <div class="signup-link">
+      Already have an account? <a href="{{ url_for('login') }}">Sign In</a>
+    </div>
+
+    <div style="text-align:center; margin-top:16px;">
+      <a href="{{ url_for('dashboard') }}" style="font-size:13px; color:var(--text-light); text-decoration:none;">
+        Continue as Guest (Launch Web IDE) &rarr;
+      </a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

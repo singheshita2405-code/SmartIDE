@@ -1,0 +1,12 @@
+Welcome to SmartIDE Desktop!
+==============================
+SmartIDE is your all-in-one lightweight desktop-grade development environment.
+Theme: Peach & White Edition.
+
+Features:
+- Live file explorer with tree navigation
+- Multi-file tabbed editor with auto-save & Ctrl+S shortcuts
+- Direct Python code execution engine with live terminal output
+- Interactive Command Terminal
+- Integrated Peach AI Assistant
+- Cross-platform release packages for Windows, macOS, and Linux

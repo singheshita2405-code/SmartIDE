@@ -1,300 +1,627 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — SmartIDE Desktop</title>
+  <meta name="description" content="Complete documentation for SmartIDE Desktop: Getting started, installation on Windows, Mac, and Linux, keyboard shortcuts, code runner, and AI assistant.">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
-<html class="dark" lang="en" style="width: 1280px; height: 1273px; position: relative;"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SmartIDE - Documentation</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-surface": "#d4e4fa",
-                        "surface-variant": "#273647",
-                        "on-primary-fixed-variant": "#004395",
-                        "on-primary-container": "#00285d",
-                        "surface-container": "#122131",
-                        "surface": "#051424",
-                        "primary-container": "#4d8eff",
-                        "on-secondary-fixed": "#23005c",
-                        "inverse-on-surface": "#233143",
-                        "on-tertiary": "#2a303e",
-                        "inverse-surface": "#d4e4fa",
-                        "error-container": "#93000a",
-                        "on-secondary-container": "#c4abff",
-                        "on-tertiary-fixed-variant": "#404756",
-                        "on-tertiary-container": "#232a37",
-                        "outline": "#8c909f",
-                        "secondary-fixed": "#e9ddff",
-                        "on-surface-variant": "#c2c6d6",
-                        "tertiary-fixed": "#dce2f5",
-                        "primary": "#adc6ff",
-                        "on-primary-fixed": "#001a42",
-                        "tertiary": "#c0c6d8",
-                        "surface-container-high": "#1c2b3c",
-                        "inverse-primary": "#005ac2",
-                        "surface-dim": "#051424",
-                        "tertiary-fixed-dim": "#c0c6d8",
-                        "secondary-container": "#571bc1",
-                        "primary-fixed-dim": "#adc6ff",
-                        "on-secondary-fixed-variant": "#5516be",
-                        "secondary": "#d0bcff",
-                        "on-error-container": "#ffdad6",
-                        "surface-container-highest": "#273647",
-                        "on-primary": "#002e6a",
-                        "background": "#051424",
-                        "surface-tint": "#adc6ff",
-                        "on-error": "#690005",
-                        "surface-container-lowest": "#010f1f",
-                        "error": "#ffb4ab",
-                        "primary-fixed": "#d8e2ff",
-                        "secondary-fixed-dim": "#d0bcff",
-                        "tertiary-container": "#8a91a1",
-                        "on-tertiary-fixed": "#151c29",
-                        "surface-container-low": "#0d1c2d",
-                        "outline-variant": "#424754",
-                        "surface-bright": "#2c3a4c",
-                        "on-secondary": "#3c0091",
-                        "on-background": "#d4e4fa"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "xs": "4px",
-                        "container-max": "1280px",
-                        "sm": "8px",
-                        "md": "16px",
-                        "gutter": "20px",
-                        "xl": "40px",
-                        "base": "4px",
-                        "lg": "24px",
-                        "xxl": "80px"
-                    },
-                    "fontFamily": {
-                        "code-sm": ["JetBrains Mono"],
-                        "headline-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "display-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "label-caps": ["Inter"],
-                        "code-md": ["JetBrains Mono"]
-                    },
-                    "fontSize": {
-                        "code-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
-                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "code-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #273647;
-            border-radius: 4px;
-        }
-        .glow-border {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-    </style>
+  <style>
+    :root {
+      --peach-50: #fff9f5;
+      --peach-100: #fff0e6;
+      --peach-200: #ffe4d2;
+      --peach-300: #ffcfb2;
+      --peach-400: #ffa574;
+      --peach-500: #ff7836;
+      --peach-600: #f05a18;
+      --warm-white: #fffdfb;
+      --text-dark: #2b1810;
+      --text-medium: #613c2c;
+      --text-light: #946956;
+      --border: rgba(255, 120, 54, 0.16);
+      --border-strong: rgba(255, 120, 54, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(255, 253, 251, 0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 70px;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #ffa574, #f05a18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 14px rgba(240, 90, 24, 0.28);
+    }
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #d64508, #ff7836);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    nav a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-medium);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a.active, nav a:hover {
+      color: var(--peach-600);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-ghost {
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-medium);
+      background: transparent;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-ghost:hover {
+      background: var(--peach-100);
+      color: var(--peach-600);
+      border-color: var(--peach-400);
+    }
+    .btn-cta {
+      padding: 9px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #ff7836, #f05a18);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(240, 90, 24, 0.3);
+      transition: all 0.2s;
+    }
+
+    /* Layout */
+    .doc-layout {
+      display: flex;
+      margin-top: 70px;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .doc-sidebar {
+      width: 290px;
+      background: #ffffff;
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 70px;
+      bottom: 0;
+      overflow-y: auto;
+      padding: 24px 0;
+      flex-shrink: 0;
+    }
+    .search-box {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-input-wrap {
+      position: relative;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 10px 12px 10px 38px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      background: var(--peach-50);
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input-wrap input:focus {
+      border-color: var(--peach-400);
+      background: #ffffff;
+    }
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 18px;
+    }
+
+    .doc-nav-group {
+      padding: 18px 20px 8px;
+    }
+    .doc-nav-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .doc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-medium);
+      text-decoration: none;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .doc-link:hover, .doc-link.active {
+      background: var(--peach-100);
+      color: var(--peach-700);
+      font-weight: 600;
+    }
+    .doc-link .material-symbols-outlined {
+      font-size: 18px;
+      color: var(--peach-500);
+    }
+
+    /* Content */
+    .doc-content {
+      flex: 1;
+      margin-left: 290px;
+      padding: 40px 60px 100px;
+      max-width: 960px;
+    }
+    .doc-content h1 {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #d64508, #ff7836);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .doc-intro {
+      font-size: 17px;
+      color: var(--text-medium);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .doc-section {
+      margin-bottom: 50px;
+      scroll-margin-top: 90px;
+    }
+    .doc-section h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .doc-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 24px 0 10px;
+    }
+    .doc-section p {
+      font-size: 15px;
+      color: var(--text-medium);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    
+    /* Code Box with Copy */
+    .code-box {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+      box-shadow: 0 4px 14px rgba(240, 90, 24, 0.04);
+    }
+    .code-box-header {
+      background: var(--peach-50);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .copy-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--peach-700);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover {
+      background: var(--peach-100);
+    }
+    .code-content {
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2b1810;
+      overflow-x: auto;
+      white-space: pre;
+      background: #ffffff;
+    }
+
+    /* Shortcuts Table */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+    }
+    .shortcut-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--peach-50);
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+    .shortcut-table td {
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: var(--text-medium);
+      border-bottom: 1px solid var(--border);
+    }
+    .key-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--peach-100);
+      color: var(--peach-700);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      display: inline-block;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 50px 32px 30px;
+      margin-left: 290px;
+    }
+    .footer-inner {
+      max-width: 960px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 900px) {
+      .doc-sidebar { display: none; }
+      .doc-content { margin-left: 0; padding: 30px 20px 60px; }
+      footer { margin-left: 0; }
+    }
+  </style>
 </head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
-<!-- Top Navigation (JSON) -->
-<nav class="bg-background/80 backdrop-blur-lg fixed top-0 w-full border-b border-white/10 shadow-2xl z-50 h-[60px]">
-<div class="flex justify-between items-center px-lg py-md max-w-container-max mx-auto h-full">
-<div class="flex items-center gap-sm">
-<img alt="SmartIDE Logo" class="w-8 h-8 rounded-DEFAULT" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyM0GLWyXDUf0ttchrP9O4KKe3t8J0V4lhIvgHUTQQAmxR63bBpoUvRmunmvR1fGV_Rm52iBvQn30h0m8WZXxiPbhRF9EEcSl81e_Utc9gsWAZ69sx4Bju_UTH_czPnlLa8jdNAXiixK7eGyXJvUI4lMGOZsEjaHllu7WUd-Rdwbymn3FPYLsc2I0ry5Mzi8uLNZitx2edULNwGWxfMS7cnATLCqDTr4yF6WVIrtn70jKGSTUDjUZEsw"/>
-<span class="font-headline-sm text-headline-sm font-bold text-on-background tracking-tight">SmartIDE</span>
-</div>
-<div class="hidden md:flex items-center gap-lg">
-<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Features</a>
-<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">AI Assistant</a>
-<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Roadmap</a>
-<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" href="#">Community</a>
-<a class="text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Blog</a>
-</div>
-<div class="flex items-center gap-md">
-<button class="hidden md:flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors duration-200">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
-</button>
-<button class="text-on-surface-variant hover:text-primary font-body-sm transition-colors duration-200">Sign In</button>
-<button class="bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container px-md py-xs rounded-DEFAULT font-body-sm font-bold hover:opacity-90 transition-opacity">Get Started</button>
-</div>
-</div>
-</nav>
-<!-- Main Layout -->
-<div class="flex-1 flex pt-[60px]">
-<!-- Left Sidebar -->
-<aside class="w-[280px] bg-surface-container flex-shrink-0 border-r border-white/10 flex flex-col z-40 hidden md:flex sticky top-[60px] h-[calc(100vh-60px)]">
-<div class="p-md border-b border-white/5">
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary transition-colors">search</span>
-<input class="w-full bg-background border border-surface-variant rounded-DEFAULT py-xs pl-xl pr-sm text-body-sm text-on-background focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all placeholder-outline-variant" placeholder="Search documentation..." type="text"/>
-<div class="absolute right-xs top-1/2 -translate-y-1/2 flex items-center gap-1">
-<kbd class="font-code-sm text-code-sm text-outline bg-surface-variant px-1 rounded-sm border border-white/5">⌘</kbd>
-<kbd class="font-code-sm text-code-sm text-outline bg-surface-variant px-1 rounded-sm border border-white/5">K</kbd>
-</div>
-</div>
-</div>
-<div class="flex-1 overflow-y-auto custom-scrollbar p-sm">
-<div class="mb-lg">
-<h3 class="font-label-caps text-label-caps text-outline uppercase px-sm mb-xs tracking-wider">Overview</h3>
-<ul class="space-y-xs">
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-primary bg-primary/10 font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">rocket_launch</span> Getting Started</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">download</span> Installation</a></li>
-</ul>
-</div>
-<div class="mb-lg">
-<h3 class="font-label-caps text-label-caps text-outline uppercase px-sm mb-xs tracking-wider">Core Features</h3>
-<ul class="space-y-xs">
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">folder_open</span> Projects</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">edit_document</span> Editor</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">database</span> Database</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span> Terminal</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">preview</span> Live Preview</a></li>
-</ul>
-</div>
-<div class="mb-lg">
-<h3 class="font-label-caps text-label-caps text-outline uppercase px-sm mb-xs tracking-wider">Advanced</h3>
-<ul class="space-y-xs">
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">cloud_upload</span> Deployment</a></li>
-<li class=""><a class="flex items-center gap-sm px-sm py-xs rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors font-body-sm" href="#"><span class="material-symbols-outlined text-[18px]">smart_toy</span> AI Assistant <span class="ml-auto bg-primary/20 text-primary font-code-sm text-code-sm px-1.5 py-0.5 rounded-sm">New</span></a></li>
-</ul>
-</div>
-</div>
-</aside>
-<!-- Content Area -->
-<main class="flex-1 relative flex justify-center">
-<div class="w-full max-w-[900px] px-lg py-xl pb-xxl">
-<div class="mb-xl">
-<div class="flex items-center gap-xs text-body-sm text-outline mb-sm">
-<span class="">Docs</span>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="">Overview</span>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="text-primary">Getting Started</span>
-</div>
-<h1 class="font-display-lg text-display-lg mb-md bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] bg-clip-text text-transparent">Getting Started with SmartIDE</h1>
-<p class="text-on-surface-variant font-body-md text-lg leading-relaxed max-w-3xl">
-                        Welcome to SmartIDE, the next-generation development environment designed for maximum velocity. This guide will walk you through your first setup, configuring your workspace, and running your first project.
-                    </p>
-</div>
-<!-- Glassmorphic Feature Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-xl">
-<div class="backdrop-blur-md border border-white/10 rounded-xl p-md glow-border relative overflow-hidden group bg-secondary-container/20">
-<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="relative z-10 flex items-start gap-md">
-<div class="w-10 h-10 rounded-lg bg-surface-variant flex items-center justify-center text-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
-</div>
-<div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Quick Install</h3>
-<p class="text-body-sm text-on-surface-variant">Get up and running in seconds with our automated installers for Windows, macOS, and Linux.</p>
-</div>
-</div>
-</div>
-<div class="bg-secondary-container/20 backdrop-blur-md border border-white/10 rounded-xl p-md glow-border relative overflow-hidden group">
-<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="relative z-10 flex items-start gap-md">
-<div class="w-10 h-10 rounded-lg bg-surface-variant flex items-center justify-center text-secondary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">palette</span>
-</div>
-<div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Theme Configuration</h3>
-<p class="text-body-sm text-on-surface-variant">Customize your workspace with deep theme support, layout profiles, and custom keybindings.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="prose prose-invert max-w-none">
-<h2 class="font-headline-lg text-headline-lg text-on-surface mt-xl mb-md">System Requirements</h2>
-<p class="text-on-surface-variant mb-md">Before installing SmartIDE, ensure your system meets the minimum requirements to guarantee a smooth development experience.</p>
-<div class="bg-surface-container border border-white/5 rounded-lg overflow-hidden mb-xl">
-<table class="w-full text-left text-body-sm">
-<thead class="bg-surface-variant text-on-surface">
-<tr>
-<th class="py-sm px-md font-medium">Component</th>
-<th class="py-sm px-md font-medium">Minimum</th>
-<th class="py-sm px-md font-medium">Recommended</th>
-</tr>
-</thead>
-<tbody class="text-on-surface-variant divide-y divide-white/5">
-<tr>
-<td class="py-sm px-md">OS</td>
-<td class="py-sm px-md">Windows 10, macOS 11, Ubuntu 20.04</td>
-<td class="py-sm px-md">Windows 11, macOS 13+, Latest Ubuntu</td>
-</tr>
-<tr>
-<td class="py-sm px-md">CPU</td>
-<td class="py-sm px-md">2 Cores, 2.0 GHz</td>
-<td class="py-sm px-md">4+ Cores, 3.0+ GHz</td>
-</tr>
-<tr>
-<td class="py-sm px-md">RAM</td>
-<td class="py-sm px-md">4 GB</td>
-<td class="py-sm px-md">16 GB+</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 class="font-headline-lg text-headline-lg text-on-surface mt-xl mb-md">Installation via CLI</h2>
-<p class="text-on-surface-variant mb-md">For power users, we recommend using our official CLI tool to manage your installation.</p>
-<!-- Code Block -->
-<div class="bg-surface-container-high rounded-xl border border-white/10 overflow-hidden mb-xl glow-border">
-<div class="flex items-center justify-between px-md py-sm bg-surface-container-highest border-b border-white/5">
-<div class="flex items-center gap-sm">
-<span class="font-code-sm text-code-sm text-outline">Terminal</span>
-<span class="bg-surface-variant text-on-surface font-code-sm text-code-sm px-1.5 py-0.5 rounded-sm">bash</span>
-</div>
-<button class="text-outline hover:text-on-surface transition-colors group flex items-center gap-1">
-<span class="material-symbols-outlined text-[16px]">content_copy</span>
-<span class="text-code-sm font-code-sm opacity-0 group-hover:opacity-100 transition-opacity">Copy</span>
-</button>
-</div>
-<div class="p-md overflow-x-auto">
-<pre class="font-code-md text-code-md leading-relaxed text-on-surface-variant"><code><span class="text-outline"># Download and install the CLI</span>
-<span class="text-primary">curl</span> -fsSL https://smartide.dev/install.sh | <span class="text-secondary">bash</span>
+<body>
 
-<span class="text-outline"># Initialize your workspace</span>
-<span class="text-primary">smartide</span> init --template web-fullstack
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a href="{{ url_for('home') }}" class="logo">
+      <div class="logo-icon"><span class="material-symbols-outlined" style="font-size:22px;">terminal</span></div>
+      <span class="logo-text">SmartIDE</span>
+    </a>
+    
+    <nav>
+      <a href="{{ url_for('features') }}">Features</a>
+      <a href="{{ url_for('documentation') }}" class="active">Documentation</a>
+      <a href="{{ url_for('downloads') }}">Downloads</a>
+      <a href="{{ url_for('dashboard') }}">Web IDE</a>
+    </nav>
 
-<span class="text-outline"># Start the development server</span>
-<span class="text-primary">smartide</span> start</code></pre>
+    <div class="header-actions">
+      {% if session.get('user_name') %}
+        <a href="{{ url_for('dashboard') }}" class="btn-ghost">{{ session['user_name'] }}</a>
+        <a href="{{ url_for('logout') }}" class="btn-ghost">Sign Out</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn-ghost">Sign In</a>
+        <a href="{{ url_for('register') }}" class="btn-cta">Get Started</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<div class="doc-layout">
+  <!-- Sidebar -->
+  <aside class="doc-sidebar">
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" id="docSearch" placeholder="Search documentation..." onkeyup="filterDocs()">
+      </div>
+    </div>
+
+    <div class="doc-nav-group">
+      <div class="doc-nav-title">Getting Started</div>
+      <a href="#quickstart" class="doc-link active"><span class="material-symbols-outlined">rocket_launch</span>Quick Tour</a>
+      <a href="#install-win" class="doc-link"><span class="material-symbols-outlined">window</span>Windows Setup</a>
+      <a href="#install-mac" class="doc-link"><span class="material-symbols-outlined">desktop_mac</span>macOS Setup</a>
+      <a href="#install-linux" class="doc-link"><span class="material-symbols-outlined">terminal</span>Linux Setup</a>
+    </div>
+
+    <div class="doc-nav-group">
+      <div class="doc-nav-title">IDE Capabilities</div>
+      <a href="#editor-guide" class="doc-link"><span class="material-symbols-outlined">edit_note</span>Tabbed Editor</a>
+      <a href="#code-runner" class="doc-link"><span class="material-symbols-outlined">play_circle</span>Code Runner & Terminal</a>
+      <a href="#shortcuts" class="doc-link"><span class="material-symbols-outlined">keyboard</span>Keyboard Shortcuts</a>
+      <a href="#ai-assistant" class="doc-link"><span class="material-symbols-outlined">smart_toy</span>Peach AI Assistant</a>
+    </div>
+
+    <div class="doc-nav-group">
+      <div class="doc-nav-title">Support</div>
+      <a href="#faq" class="doc-link"><span class="material-symbols-outlined">help</span>FAQ & Help</a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="doc-content">
+    <h1>SmartIDE <span class="gradient-text">Documentation</span></h1>
+    <p class="doc-intro">
+      Welcome to the SmartIDE guide. Learn how to install, configure, and code in the Peach & White desktop IDE.
+    </p>
+
+    <!-- Quickstart -->
+    <section class="doc-section" id="quickstart">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">rocket_launch</span> Quick Tour</h2>
+      <p>
+        SmartIDE is a lightweight desktop IDE engineered for responsiveness. Built on a clean peach and white design system, it delivers instant startup, workspace file management, an integrated Python 3.14 runner, and real-time terminal output.
+      </p>
+      
+      <div class="code-box">
+        <div class="code-box-header">
+          <span>Python Sample • workspace/main.py</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <span class="material-symbols-outlined" style="font-size:14px;">content_copy</span> Copy
+          </button>
+        </div>
+        <div class="code-content">def greet(name: str):
+    return f"✨ Welcome to SmartIDE, {name}!"
+
+if __name__ == "__main__":
+    print(greet("Developer"))
+    print("Desktop Environment initialized successfully.")</div>
+      </div>
+    </section>
+
+    <!-- Windows Setup -->
+    <section class="doc-section" id="install-win">
+      <h2><span class="material-symbols-outlined" style="color:#0078d4;">window</span> Installing on Windows</h2>
+      <p>Follow these quick steps to get SmartIDE up and running on Windows 10 or 11 (64-bit):</p>
+      <ol style="margin-left: 20px; line-height: 1.8; color: var(--text-medium); font-size: 15px;">
+        <li>Download <code>SmartIDE-Setup-v2.4.1-x64.exe</code> from the <a href="{{ url_for('downloads') }}" style="color:var(--peach-600);">Downloads page</a>.</li>
+        <li>Double-click the downloaded setup file to launch the SmartIDE Setup Wizard.</li>
+        <li>Choose your preferred installation directory and click <strong>Install</strong>.</li>
+        <li>Launch SmartIDE from your Start Menu or Desktop shortcut.</li>
+      </ol>
+    </section>
+
+    <!-- macOS Setup -->
+    <section class="doc-section" id="install-mac">
+      <h2><span class="material-symbols-outlined" style="color:#555;">desktop_mac</span> Installing on macOS</h2>
+      <p>SmartIDE is distributed as a Universal Apple Silicon & Intel package:</p>
+      <ol style="margin-left: 20px; line-height: 1.8; color: var(--text-medium); font-size: 15px;">
+        <li>Download <code>SmartIDE-v2.4.1-Universal.dmg</code>.</li>
+        <li>Open the <code>.dmg</code> disk image.</li>
+        <li>Drag the <strong>SmartIDE</strong> app bundle into your <code>/Applications</code> folder.</li>
+        <li>Launch SmartIDE from Spotlight or Launchpad.</li>
+      </ol>
+    </section>
+
+    <!-- Linux Setup -->
+    <section class="doc-section" id="install-linux">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">terminal</span> Installing on Linux</h2>
+      <p>For Debian, Ubuntu, and derivatives, run:</p>
+      <div class="code-box">
+        <div class="code-box-header">
+          <span>Bash</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <span class="material-symbols-outlined" style="font-size:14px;">content_copy</span> Copy
+          </button>
+        </div>
+        <div class="code-content">sudo dpkg -i smartide_2.4.1_amd64.deb
+sudo apt-get install -f # resolve any missing runtime libs</div>
+      </div>
+    </section>
+
+    <!-- Tabbed Editor -->
+    <section class="doc-section" id="editor-guide">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">edit_note</span> Tabbed Code Editor</h2>
+      <p>
+        The editor supports multi-file tabs, line numbers gutter, and auto-indentation. Open any file from the left Explorer sidebar to edit. Unsaved changes are marked with an orange indicator on the tab.
+      </p>
+    </section>
+
+    <!-- Code Runner -->
+    <section class="doc-section" id="code-runner">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">play_circle</span> Code Runner & Integrated Terminal</h2>
+      <p>
+        Execute your Python files directly inside SmartIDE without leaving the application:
+      </p>
+      <ul style="margin-left: 20px; line-height: 1.8; color: var(--text-medium); font-size: 15px;">
+        <li>Click the top bar <strong>Run</strong> button or press <span class="key-badge">F5</span>.</li>
+        <li>Or type commands like <code>python main.py</code> in the bottom terminal prompt.</li>
+        <li>Output and stack traces appear instantly in the TERMINAL drawer.</li>
+      </ul>
+    </section>
+
+    <!-- Shortcuts -->
+    <section class="doc-section" id="shortcuts">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">keyboard</span> Desktop Keyboard Shortcuts</h2>
+      <table class="shortcut-table">
+        <thead>
+          <tr>
+            <th>Shortcut</th>
+            <th>Action</th>
+            <th>Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="key-badge">Ctrl + S</span> / <span class="key-badge">⌘ + S</span></td>
+            <td>Save active file to workspace</td>
+            <td>Code Editor</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">F5</span></td>
+            <td>Execute current script</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Ctrl + N</span></td>
+            <td>Create a new workspace file</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Tab</span></td>
+            <td>Indent 4 spaces</td>
+            <td>Code Editor</td>
+          </tr>
+          <tr>
+            <td><span class="key-badge">Ctrl + A</span></td>
+            <td>Select entire document</td>
+            <td>Code Editor</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- AI Assistant -->
+    <section class="doc-section" id="ai-assistant">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">smart_toy</span> Peach AI Assistant</h2>
+      <p>
+        Click the robot icon on the left Activity Bar to open the Peach AI drawer. You can request instant code explanations, syntax diagnostics, and boilerplate generation for functions and error handling.
+      </p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="doc-section" id="faq">
+      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">help</span> Frequently Asked Questions</h2>
+      <h3>Where are my files stored?</h3>
+      <p>All files are saved inside the local <code>workspace/</code> directory within your SmartIDE root directory.</p>
+      
+      <h3>Can I run SmartIDE without installing?</h3>
+      <p>
+        Yes! Simply navigate to the <a href="{{ url_for('dashboard') }}" style="color:var(--peach-600);">Web IDE</a> to run SmartIDE directly inside modern web browsers.
+      </p>
+    </section>
+  </main>
 </div>
-</div>
-</div>
-</div>
-<!-- Right Sidebar / Table of Contents -->
-<div class="w-[240px] hidden xl:block flex-shrink-0 p-lg sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto">
-<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-md tracking-wider">On this page</h4>
-<ul class="space-y-sm border-l border-white/10 pl-md">
-<li class=""><a class="text-primary font-body-sm hover:text-primary transition-colors block" href="#">Quick Install</a></li>
-<li class=""><a class="text-on-surface-variant font-body-sm hover:text-on-surface transition-colors block" href="#">Theme Configuration</a></li>
-<li class=""><a class="text-on-surface-variant font-body-sm hover:text-on-surface transition-colors block" href="#">System Requirements</a></li>
-<li class=""><a class="text-on-surface-variant font-body-sm hover:text-on-surface transition-colors block" href="#">Installation via CLI</a></li>
-</ul>
-</div>
-</main>
-</div>
-</body></html>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2026 SmartIDE. All rights reserved.</span>
+    <span>Peach & White Documentation v2.4.1</span>
+  </div>
+</footer>
+
+<script>
+function copySnippet(btn) {
+  const content = btn.closest('.code-box').querySelector('.code-content').textContent;
+  navigator.clipboard.writeText(content).then(() => {
+    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px;">check</span> Copied!`;
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px;">content_copy</span> Copy`;
+    }, 2000);
+  });
+}
+
+function filterDocs() {
+  const q = document.getElementById('docSearch').value.toLowerCase();
+  document.querySelectorAll('.doc-section').forEach(sec => {
+    const text = sec.textContent.toLowerCase();
+    sec.style.display = text.includes(q) ? 'block' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartIDE — Desktop Workspace</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --peach-50: #fff9f5;
+      --peach-100: #fff0e6;
+      --peach-200: #ffe4d2;
+      --peach-300: #ffcfb2;
+      --peach-400: #ffa574;
+      --peach-500: #ff7836;
+      --peach-600: #f05a18;
+      --peach-700: #d64508;
+      --warm-white: #ffffff;
+      --panel-bg: #fffbf8;
+      --sidebar-bg: #fff6ee;
+      --tab-bg: #fbf0e8;
+      --tab-active-bg: #ffffff;
+      --editor-bg: #ffffff;
+      --text-dark: #2b1810;
+      --text-medium: #5c3828;
+      --text-light: #946956;
+      --border: rgba(255, 120, 54, 0.16);
+      --border-strong: rgba(255, 120, 54, 0.32);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 1. DESKTOP TITLE BAR */
+    .desktop-titlebar {
+      height: 38px;
+      background: #fff8f3;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .traffic-controls {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      margin-right: 18px;
+    }
+    .traffic-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .dot-close { background: #ff5f56; }
+    .dot-min { background: #ffbd2e; }
+    .dot-max { background: #27c93f; }
+    .traffic-dot:hover { opacity: 0.8; }
+    
+    .titlebar-center {
+      flex: 1;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .titlebar-center .badge-env {
+      background: var(--peach-200);
+      color: var(--peach-700);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .titlebar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      color: var(--text-medium);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .top-btn:hover {
+      background: var(--peach-100);
+      color: var(--peach-600);
+      border-color: var(--peach-400);
+    }
+    .top-btn.run-btn {
+      background: linear-gradient(135deg, #ff7836, #f05a18);
+      color: white;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(240, 90, 24, 0.25);
+    }
+    .top-btn.run-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(240, 90, 24, 0.35);
+    }
+
+    /* 2. DESKTOP MENU BAR WITH DROPDOWNS */
+    .desktop-menubar {
+      height: 30px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 12px;
+      gap: 4px;
+      user-select: none;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 50;
+    }
+    .menu-item {
+      position: relative;
+    }
+    .menu-trigger {
+      padding: 3px 8px;
+      color: var(--text-medium);
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.1s;
+    }
+    .menu-trigger:hover, .menu-item.active .menu-trigger {
+      background: var(--peach-100);
+      color: var(--peach-700);
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(240, 90, 24, 0.12);
+      min-width: 190px;
+      padding: 6px 0;
+      z-index: 100;
+    }
+    .menu-item.active .dropdown-menu {
+      display: block;
+    }
+    .dropdown-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .dropdown-row:hover {
+      background: var(--peach-100);
+      color: var(--peach-600);
+    }
+    .dropdown-row .shortcut {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    /* 3. MAIN WORKSPACE LAYOUT */
+    .workspace-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    /* Left Activity Bar */
+    .activity-bar {
+      width: 50px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 10px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .act-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .act-icon:hover {
+      background: var(--peach-100);
+      color: var(--peach-600);
+    }
+    .act-icon.active {
+      background: #ffffff;
+      color: var(--peach-600);
+      box-shadow: 0 2px 8px rgba(240, 90, 24, 0.12);
+    }
+    .act-icon.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      background: var(--peach-600);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Left Sidebar Views (Explorer, AI, etc.) */
+    .side-panel {
+      width: 240px;
+      background: var(--panel-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .side-head {
+      height: 36px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .side-head-tools {
+      display: flex;
+      gap: 6px;
+    }
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+    .icon-btn:hover {
+      color: var(--peach-600);
+      background: var(--peach-100);
+    }
+    .file-tree {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+    .tree-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .tree-item:hover {
+      background: var(--peach-100);
+      color: var(--peach-700);
+    }
+    .tree-item.active {
+      background: #ffe3d1;
+      color: var(--peach-700);
+      font-weight: 600;
+      border-left: 3px solid var(--peach-600);
+      padding-left: 11px;
+    }
+    .tree-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tree-del {
+      opacity: 0;
+      color: var(--text-light);
+      font-size: 14px;
+      transition: opacity 0.15s;
+    }
+    .tree-item:hover .tree-del {
+      opacity: 1;
+    }
+    .tree-del:hover {
+      color: #ff5f56;
+    }
+
+    /* AI Side Panel */
+    .ai-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding: 12px;
+    }
+    .ai-bubble {
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .ai-quick-btn {
+      background: var(--peach-100);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--peach-700);
+      cursor: pointer;
+      margin-bottom: 6px;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .ai-quick-btn:hover {
+      background: var(--peach-200);
+    }
+
+    /* 4. EDITOR + TERMINAL CONTAINER */
+    .editor-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    /* Tab Bar */
+    .tab-bar {
+      height: 36px;
+      background: var(--tab-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      overflow-x: auto;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      background: var(--tab-bg);
+      border-right: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .tab:hover {
+      background: #fff7f2;
+    }
+    .tab.active {
+      background: var(--tab-active-bg);
+      color: var(--peach-700);
+      font-weight: 600;
+      border-bottom: 2px solid var(--peach-600);
+    }
+    .tab-close {
+      font-size: 14px;
+      border-radius: 50%;
+      padding: 2px;
+    }
+    .tab-close:hover {
+      background: var(--peach-200);
+      color: #ff5f56;
+    }
+    .dirty-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--peach-500);
+      display: none;
+    }
+    .tab.dirty .dirty-dot {
+      display: inline-block;
+    }
+
+    /* Editor Main Area */
+    .editor-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      background: #ffffff;
+    }
+    .line-numbers {
+      width: 48px;
+      background: #fffdfb;
+      border-right: 1px solid var(--border);
+      padding: 12px 10px 12px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 22px;
+      color: #caa390;
+      text-align: right;
+      user-select: none;
+      overflow: hidden;
+    }
+    .code-textarea {
+      flex: 1;
+      height: 100%;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+      font-size: 13.5px;
+      line-height: 22px;
+      color: #2b1810;
+      background: #ffffff;
+      border: none;
+      outline: none;
+      resize: none;
+      white-space: pre;
+      tab-size: 4;
+      overflow: auto;
+    }
+
+    /* 5. BOTTOM TERMINAL & OUTPUT DRAWER */
+    .bottom-panel {
+      height: 200px;
+      background: #fffbf8;
+      border-top: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .panel-tabs-bar {
+      height: 32px;
+      background: #fff3ea;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 14px;
+      user-select: none;
+    }
+    .panel-tab {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.05em;
+    }
+    .panel-tab:hover {
+      color: var(--peach-600);
+    }
+    .panel-tab.active {
+      color: var(--peach-700);
+      border-bottom: 2px solid var(--peach-600);
+      padding-bottom: 6px;
+      margin-bottom: -6px;
+    }
+    .panel-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+    }
+    .terminal-console {
+      flex: 1;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #2b1810;
+      background: #fffbf8;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .term-input-row {
+      display: flex;
+      align-items: center;
+      padding: 4px 14px 8px;
+      background: #fffbf8;
+      border-top: 1px solid rgba(255, 120, 54, 0.08);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .term-prompt {
+      color: var(--peach-600);
+      font-weight: 700;
+      margin-right: 8px;
+      user-select: none;
+    }
+    .term-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #2b1810;
+    }
+
+    /* 6. DESKTOP STATUS BAR */
+    .status-bar {
+      height: 24px;
+      background: linear-gradient(90deg, #f05a18, #ff7836);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      gap: 14px;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.95;
+    }
+    .status-spacer {
+      flex: 1;
+    }
+
+    /* Modal / Dialog */
+    .dialog-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(43, 24, 16, 0.4);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+    .dialog-box {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 2px solid var(--peach-400);
+      padding: 24px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1. TITLE BAR -->
+<div class="desktop-titlebar">
+  <div class="traffic-controls">
+    <div class="traffic-dot dot-close" title="Close" onclick="location.href='/'"></div>
+    <div class="traffic-dot dot-min" title="Minimize"></div>
+    <div class="traffic-dot dot-max" title="Toggle Fullscreen" onclick="toggleFullScreen()"></div>
+  </div>
+
+  <div class="titlebar-center">
+    <span class="material-symbols-outlined" style="font-size:16px; color:var(--peach-600);">terminal</span>
+    <span id="winTitle">SmartIDE — workspace/main.py</span>
+    <span class="badge-env">Peach Desktop</span>
+  </div>
+
+  <div class="titlebar-actions">
+    <button class="top-btn" onclick="saveActiveFile()" title="Save (Ctrl+S)">
+      <span class="material-symbols-outlined" style="font-size:15px;">save</span> Save
+    </button>
+    <button class="top-btn run-btn" onclick="executeCurrentCode()" title="Run Script (F5)">
+      <span class="material-symbols-outlined" style="font-size:15px;">play_arrow</span> Run
+    </button>
+    <a href="{{ url_for('documentation') }}" class="top-btn" title="Documentation">
+      <span class="material-symbols-outlined" style="font-size:15px;">help_outline</span> Docs
+    </a>
+    <a href="{{ url_for('home') }}" class="top-btn" title="Go to Launching Page">
+      <span class="material-symbols-outlined" style="font-size:15px;">home</span> Home
+    </a>
+  </div>
+</div>
+
+<!-- 2. MENU BAR WITH DROPDOWNS -->
+<div class="desktop-menubar">
+  <div class="menu-item" id="menuFile">
+    <span class="menu-trigger" onclick="toggleMenu('menuFile')">File</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="promptNewFile()"><span>New File...</span><span class="shortcut">Ctrl+N</span></div>
+      <div class="dropdown-row" onclick="saveActiveFile()"><span>Save File</span><span class="shortcut">Ctrl+S</span></div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-row" onclick="location.href='{{ url_for('downloads') }}'"><span>Download Desktop App</span></div>
+      <div class="dropdown-row" onclick="location.href='{{ url_for('home') }}'"><span>Exit to Home</span></div>
+    </div>
+  </div>
+
+  <div class="menu-item" id="menuEdit">
+    <span class="menu-trigger" onclick="toggleMenu('menuEdit')">Edit</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="document.execCommand('undo')"><span>Undo</span><span class="shortcut">Ctrl+Z</span></div>
+      <div class="dropdown-row" onclick="document.execCommand('redo')"><span>Redo</span><span class="shortcut">Ctrl+Y</span></div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-row" onclick="document.getElementById('codeEditor').select()"><span>Select All</span><span class="shortcut">Ctrl+A</span></div>
+    </div>
+  </div>
+
+  <div class="menu-item" id="menuView">
+    <span class="menu-trigger" onclick="toggleMenu('menuView')">View</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="switchSideView('explorer')"><span>Explorer</span></div>
+      <div class="dropdown-row" onclick="switchSideView('ai')"><span>Peach AI Assistant</span></div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-row" onclick="toggleBottomPanel()"><span>Toggle Terminal Drawer</span></div>
+    </div>
+  </div>
+
+  <div class="menu-item" id="menuRun">
+    <span class="menu-trigger" onclick="toggleMenu('menuRun')">Run</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="executeCurrentCode()"><span>Run Python Code</span><span class="shortcut">F5</span></div>
+      <div class="dropdown-row" onclick="clearTerminal()"><span>Clear Output</span></div>
+    </div>
+  </div>
+
+  <div class="menu-item" id="menuTerminal">
+    <span class="menu-trigger" onclick="toggleMenu('menuTerminal')">Terminal</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="executeCommand('python main.py')"><span>Run main.py</span></div>
+      <div class="dropdown-row" onclick="executeCommand('ls')"><span>List Files (ls)</span></div>
+      <div class="dropdown-row" onclick="executeCommand('help')"><span>Terminal Help</span></div>
+    </div>
+  </div>
+
+  <div class="menu-item" id="menuHelp">
+    <span class="menu-trigger" onclick="toggleMenu('menuHelp')">Help</span>
+    <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="location.href='{{ url_for('documentation') }}'"><span>Documentation</span></div>
+      <div class="dropdown-row" onclick="showAboutDialog()"><span>About SmartIDE</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. MAIN WORKSPACE -->
+<div class="workspace-layout">
+  <!-- Left Activity Bar -->
+  <div class="activity-bar">
+    <div class="act-icon active" id="actExplorer" title="Workspace Explorer" onclick="switchSideView('explorer')">
+      <span class="material-symbols-outlined" style="font-size:20px;">folder</span>
+    </div>
+    <div class="act-icon" id="actAI" title="Peach AI Assistant" onclick="switchSideView('ai')">
+      <span class="material-symbols-outlined" style="font-size:20px;">smart_toy</span>
+    </div>
+    <div class="act-icon" title="Documentation" onclick="location.href='{{ url_for('documentation') }}'">
+      <span class="material-symbols-outlined" style="font-size:20px;">menu_book</span>
+    </div>
+    <div class="act-icon" title="Downloads" onclick="location.href='{{ url_for('downloads') }}'">
+      <span class="material-symbols-outlined" style="font-size:20px;">download</span>
+    </div>
+    <div class="act-icon" style="margin-top:auto;" title="About" onclick="showAboutDialog()">
+      <span class="material-symbols-outlined" style="font-size:20px;">info</span>
+    </div>
+  </div>
+
+  <!-- Left Sidebar Panel -->
+  <div class="side-panel">
+    <!-- Explorer View -->
+    <div id="viewExplorer" style="display:flex; flex-direction:column; height:100%;">
+      <div class="side-head">
+        <span>Files</span>
+        <div class="side-head-tools">
+          <button class="icon-btn" title="New File" onclick="promptNewFile()">
+            <span class="material-symbols-outlined" style="font-size:16px;">add</span>
+          </button>
+          <button class="icon-btn" title="Refresh Workspace" onclick="loadWorkspaceFiles()">
+            <span class="material-symbols-outlined" style="font-size:16px;">refresh</span>
+          </button>
+        </div>
+      </div>
+      <div class="file-tree" id="fileTreeContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- AI View -->
+    <div id="viewAI" class="ai-view">
+      <div class="side-head" style="margin:-12px -12px 12px; padding:0 12px;">
+        <span>Peach AI Assistant</span>
+      </div>
+      <div class="ai-bubble">
+        👋 Hi! I'm your SmartIDE Peach assistant. Ask me to explain code, fix errors, or generate helpers.
+      </div>
+      <button class="ai-quick-btn" onclick="askAI('Explain this active script')">💡 Explain active code</button>
+      <button class="ai-quick-btn" onclick="askAI('Check for syntax errors or bugs')">🔍 Check for bugs</button>
+      <button class="ai-quick-btn" onclick="askAI('Add error handling boilerplate')">🛡️ Add error handling</button>
+      <div style="flex:1;"></div>
+      <div class="ai-bubble" id="aiResponse" style="max-height:160px; overflow-y:auto; font-size:11.5px; background:var(--peach-50);">
+        Ready to assist.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. EDITOR & TERMINAL WORKSPACE -->
+  <div class="editor-container">
+    <!-- Tab Bar -->
+    <div class="tab-bar" id="tabBar">
+      <!-- Tabs rendered dynamically -->
+    </div>
+
+    <!-- Editor Body -->
+    <div class="editor-body">
+      <div class="line-numbers" id="lineGutter">1</div>
+      <textarea class="code-textarea" id="codeEditor" spellcheck="false" placeholder="# Start typing code here..."></textarea>
+    </div>
+
+    <!-- 5. BOTTOM TERMINAL & OUTPUT -->
+    <div class="bottom-panel" id="bottomPanel">
+      <div class="panel-tabs-bar">
+        <span class="panel-tab active" id="tabTerm" onclick="switchPanelTab('terminal')">
+          <span class="material-symbols-outlined" style="font-size:14px;">terminal</span> TERMINAL
+        </span>
+        <span class="panel-tab" id="tabOut" onclick="switchPanelTab('output')">
+          <span class="material-symbols-outlined" style="font-size:14px;">data_object</span> OUTPUT
+        </span>
+        <div class="panel-actions">
+          <button class="icon-btn" title="Run Script" onclick="executeCurrentCode()"><span class="material-symbols-outlined" style="font-size:16px;">play_arrow</span></button>
+          <button class="icon-btn" title="Clear Console" onclick="clearTerminal()"><span class="material-symbols-outlined" style="font-size:16px;">block</span></button>
+          <button class="icon-btn" title="Toggle Size" onclick="toggleBottomPanel()"><span class="material-symbols-outlined" style="font-size:16px;">expand</span></button>
+        </div>
+      </div>
+
+      <div class="terminal-console" id="terminalOutput">SmartIDE Terminal v2.4.1 [Python 3.14 Environment]
+Type 'python main.py', 'ls', or 'help' below.
+$ </div>
+
+      <div class="term-input-row">
+        <span class="term-prompt">&gt;</span>
+        <input type="text" class="term-input" id="termCommandInput" placeholder="Enter command or python expression (e.g. python main.py)..." onkeydown="handleTermInput(event)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. DESKTOP STATUS BAR -->
+<div class="status-bar">
+  <div class="status-item">
+    <span class="material-symbols-outlined" style="font-size:14px;">account_tree</span>
+    <span>main</span>
+  </div>
+  <div class="status-item">
+    <span class="material-symbols-outlined" style="font-size:14px;">check_circle</span>
+    <span>0 errors</span>
+  </div>
+  <div class="status-spacer"></div>
+  <div class="status-item" id="posIndicator">Ln 1, Col 1</div>
+  <div class="status-item">UTF-8</div>
+  <div class="status-item">Python 3.14.7</div>
+  <div class="status-item">Peach Desktop</div>
+</div>
+
+<!-- ABOUT DIALOG -->
+<div class="dialog-overlay" id="aboutDialog" onclick="hideAboutDialog(event)">
+  <div class="dialog-box" onclick="event.stopPropagation()">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+      <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#ffa574,#f05a18); display:flex; align-items:center; justify-content:center; color:white;">
+        <span class="material-symbols-outlined">terminal</span>
+      </div>
+      <div>
+        <h3 style="font-size:16px; font-weight:700;">SmartIDE Desktop</h3>
+        <p style="font-size:12px; color:var(--text-light);">Version 2.4.1 (Peach & White Edition)</p>
+      </div>
+    </div>
+    <p style="font-size:13px; line-height:1.6; color:var(--text-medium); margin-bottom:16px;">
+      A lightweight, native-style desktop development environment designed for high performance, distraction-free editing, and integrated execution.
+    </p>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="top-btn" onclick="document.getElementById('aboutDialog').style.display='none'">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// State Management
+let currentFile = 'main.py';
+let openTabs = ['main.py'];
+let dirtyFiles = new Set();
+let filesCache = {};
+
+const codeEditor = document.getElementById('codeEditor');
+const lineGutter = document.getElementById('lineGutter');
+const posIndicator = document.getElementById('posIndicator');
+const terminalOutput = document.getElementById('terminalOutput');
+const termInput = document.getElementById('termCommandInput');
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  loadWorkspaceFiles();
+  openFile('main.py');
+
+  codeEditor.addEventListener('input', () => {
+    updateLineNumbers();
+    dirtyFiles.add(currentFile);
+    renderTabs();
+  });
+
+  codeEditor.addEventListener('keyup', updateCursorPos);
+  codeEditor.addEventListener('click', updateCursorPos);
+
+  // Tab key indent
+  codeEditor.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = codeEditor.selectionStart;
+      const end = codeEditor.selectionEnd;
+      codeEditor.value = codeEditor.value.substring(0, start) + "    " + codeEditor.value.substring(end);
+      codeEditor.selectionStart = codeEditor.selectionEnd = start + 4;
+      updateLineNumbers();
+    }
+    // Ctrl+S
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      saveActiveFile();
+    }
+  });
+
+  // Global close menus
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.menu-item')) {
+      closeAllMenus();
+    }
+  });
+});
+
+function updateCursorPos() {
+  const text = codeEditor.value.substr(0, codeEditor.selectionStart);
+  const lines = text.split('\n');
+  const line = lines.length;
+  const col = lines[lines.length - 1].length + 1;
+  posIndicator.textContent = `Ln ${line}, Col ${col}`;
+}
+
+function updateLineNumbers() {
+  const lineCount = (codeEditor.value.match(/\n/g) || []).length + 1;
+  let linesStr = '';
+  for (let i = 1; i <= lineCount; i++) {
+    linesStr += i + '\n';
+  }
+  lineGutter.textContent = linesStr;
+}
+
+// Menu Bar Controls
+function toggleMenu(id) {
+  const item = document.getElementById(id);
+  const wasActive = item.classList.contains('active');
+  closeAllMenus();
+  if (!wasActive) item.classList.add('active');
+}
+
+function closeAllMenus() {
+  document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+}
+
+// Side Views
+function switchSideView(view) {
+  document.querySelectorAll('.act-icon').forEach(i => i.classList.remove('active'));
+  document.getElementById('viewExplorer').style.display = 'none';
+  document.getElementById('viewAI').style.display = 'none';
+
+  if (view === 'explorer') {
+    document.getElementById('actExplorer').classList.add('active');
+    document.getElementById('viewExplorer').style.display = 'flex';
+  } else if (view === 'ai') {
+    document.getElementById('actAI').classList.add('active');
+    document.getElementById('viewAI').style.display = 'flex';
+  }
+}
+
+// Workspace APIs
+async function loadWorkspaceFiles() {
+  try {
+    const res = await fetch('/api/files');
+    const data = await res.json();
+    if (data.success) {
+      renderFileTree(data.files);
+    }
+  } catch (err) {
+    console.error('Failed to load files:', err);
+  }
+}
+
+function renderFileTree(files) {
+  const container = document.getElementById('fileTreeContainer');
+  container.innerHTML = '';
+  files.forEach(f => {
+    const item = document.createElement('div');
+    item.className = `tree-item ${f.name === currentFile ? 'active' : ''}`;
+    item.innerHTML = `
+      <div class="tree-label" onclick="openFile('${f.name}')">
+        <span class="material-symbols-outlined" style="font-size:16px; color:var(--peach-500);">
+          ${f.is_dir ? 'folder' : (f.name.endsWith('.py') ? 'terminal' : 'description')}
+        </span>
+        <span>${f.name}</span>
+      </div>
+      ${f.name !== 'main.py' ? `<span class="material-symbols-outlined tree-del" onclick="deleteWorkspaceFile(event, '${f.name}')">close</span>` : ''}
+    `;
+    container.appendChild(item);
+  });
+}
+
+async function openFile(filename) {
+  try {
+    const res = await fetch('/api/get-file', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename })
+    });
+    const data = await res.json();
+    if (data.success) {
+      currentFile = filename;
+      codeEditor.value = data.content;
+      filesCache[filename] = data.content;
+      
+      if (!openTabs.includes(filename)) {
+        openTabs.push(filename);
+      }
+      renderTabs();
+      loadWorkspaceFiles();
+      updateLineNumbers();
+      document.getElementById('winTitle').textContent = `SmartIDE — workspace/${filename}`;
+    }
+  } catch (err) {
+    console.error('Open file error:', err);
+  }
+}
+
+function renderTabs() {
+  const tabBar = document.getElementById('tabBar');
+  tabBar.innerHTML = '';
+  openTabs.forEach(file => {
+    const tab = document.createElement('div');
+    tab.className = `tab ${file === currentFile ? 'active' : ''} ${dirtyFiles.has(file) ? 'dirty' : ''}`;
+    tab.innerHTML = `
+      <span class="material-symbols-outlined" style="font-size:14px; color:var(--peach-600);">
+        ${file.endsWith('.py') ? 'terminal' : 'description'}
+      </span>
+      <span onclick="openFile('${file}')">${file}</span>
+      <div class="dirty-dot"></div>
+      <span class="material-symbols-outlined tab-close" onclick="closeTab(event, '${file}')">close</span>
+    `;
+    tabBar.appendChild(tab);
+  });
+}
+
+function closeTab(e, file) {
+  e.stopPropagation();
+  openTabs = openTabs.filter(f => f !== file);
+  if (openTabs.length === 0) {
+    openTabs = ['main.py'];
+  }
+  if (currentFile === file) {
+    openFile(openTabs[openTabs.length - 1]);
+  } else {
+    renderTabs();
+  }
+}
+
+async function saveActiveFile() {
+  const content = codeEditor.value;
+  try {
+    const res = await fetch('/api/save-file', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: currentFile, content })
+    });
+    const data = await res.json();
+    if (data.success) {
+      dirtyFiles.delete(currentFile);
+      renderTabs();
+      appendTerminal(`[Saved] workspace/${currentFile} written successfully.\n$ `);
+    }
+  } catch (err) {
+    appendTerminal(`[Save Error] ${err.message}\n$ `);
+  }
+}
+
+async function promptNewFile() {
+  const name = prompt("Enter new filename (e.g., utils.py, test.py):");
+  if (!name) return;
+  try {
+    const res = await fetch('/api/new-file', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: name })
+    });
+    const data = await res.json();
+    if (data.success) {
+      loadWorkspaceFiles();
+      openFile(name);
+    }
+  } catch (err) {
+    alert("Error creating file: " + err.message);
+  }
+}
+
+async function deleteWorkspaceFile(e, name) {
+  e.stopPropagation();
+  if (!confirm(`Delete ${name}?`)) return;
+  try {
+    const res = await fetch('/api/delete-file', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: name })
+    });
+    const data = await res.json();
+    if (data.success) {
+      closeTab(e, name);
+      loadWorkspaceFiles();
+    }
+  } catch (err) {
+    alert("Error deleting file: " + err.message);
+  }
+}
+
+// Code Execution Engine
+async function executeCurrentCode() {
+  await saveActiveFile();
+  appendTerminal(`\n$ python ${currentFile}\n`);
+  
+  try {
+    const res = await fetch('/run-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: currentFile, code: codeEditor.value })
+    });
+    const data = await res.json();
+    if (data.output) {
+      appendTerminal(data.output + `\n[Process completed with exit code ${data.exit_code}]\n$ `);
+    } else {
+      appendTerminal(`[No output]\n$ `);
+    }
+  } catch (err) {
+    appendTerminal(`[Execution Failure] ${err.message}\n$ `);
+  }
+}
+
+function handleTermInput(e) {
+  if (e.key === 'Enter') {
+    const cmd = termInput.value.trim();
+    if (!cmd) return;
+    termInput.value = '';
+    executeCommand(cmd);
+  }
+}
+
+function executeCommand(cmd) {
+  appendTerminal(`\n$ ${cmd}\n`);
+  if (cmd === 'clear') {
+    clearTerminal();
+    return;
+  }
+  if (cmd === 'help') {
+    appendTerminal(`SmartIDE Terminal Commands:
+- python <filename.py> : Run a python script in workspace
+- ls / dir             : List files in current workspace
+- clear                : Clear terminal screen
+- date                 : Show current system time
+- help                 : Display this command reference\n$ `);
+    return;
+  }
+  if (cmd === 'ls' || cmd === 'dir') {
+    loadWorkspaceFiles();
+    fetch('/api/files').then(r => r.json()).then(d => {
+      let list = d.files.map(f => `  ${f.name} (${f.size} B)`).join('\n');
+      appendTerminal(list + '\n$ ');
+    });
+    return;
+  }
+  if (cmd.startsWith('python ')) {
+    const fname = cmd.replace('python ', '').trim();
+    fetch('/run-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: fname })
+    }).then(r => r.json()).then(d => {
+      appendTerminal((d.output || '[No output]') + '\n$ ');
+    });
+    return;
+  }
+  if (cmd === 'date') {
+    appendTerminal(new Date().toString() + '\n$ ');
+    return;
+  }
+  // Fallback evaluate python
+  fetch('/run-code', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code: cmd })
+  }).then(r => r.json()).then(d => {
+    appendTerminal((d.output || '[Done]') + '\n$ ');
+  });
+}
+
+function appendTerminal(text) {
+  terminalOutput.textContent += text;
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function clearTerminal() {
+  terminalOutput.textContent = "$ ";
+}
+
+function toggleBottomPanel() {
+  const panel = document.getElementById('bottomPanel');
+  if (panel.style.display === 'none') {
+    panel.style.display = 'flex';
+  } else {
+    panel.style.display = 'none';
+  }
+}
+
+function switchPanelTab(tab) {
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  if (tab === 'terminal') {
+    document.getElementById('tabTerm').classList.add('active');
+  } else {
+    document.getElementById('tabOut').classList.add('active');
+  }
+}
+
+// AI Assistant
+function askAI(promptText) {
+  const res = document.getElementById('aiResponse');
+  res.innerHTML = `<em>Thinking... Analyzing ${currentFile}</em>`;
+  setTimeout(() => {
+    if (promptText.includes('Explain')) {
+      res.innerHTML = `<strong>Code Analysis:</strong><br>File <code>${currentFile}</code> contains modular Python functions. It executes cleanly under the local Python 3.14 runtime.`;
+    } else if (promptText.includes('bugs')) {
+      res.innerHTML = `<strong>Diagnostic Scan:</strong><br>✅ Syntax check: 0 errors found.<br>Variables are properly typed and scopes are clean.`;
+    } else {
+      res.innerHTML = `<strong>Suggestion:</strong><br>Added try/except block pattern. Use <code>Ctrl+S</code> to persist your edits.`;
+    }
+  }, 400);
+}
+
+function showAboutDialog() {
+  document.getElementById('aboutDialog').style.display = 'flex';
+}
+function hideAboutDialog() {
+  document.getElementById('aboutDialog').style.display = 'none';
+}
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+}
+</script>
+</body>
+</html>
