@@ -394,7 +394,6 @@
       <a href="{{ url_for('features') }}">Features</a>
       <a href="{{ url_for('documentation') }}" class="active">Documentation</a>
       <a href="{{ url_for('downloads') }}">Downloads</a>
-      <a href="{{ url_for('dashboard') }}">Web IDE</a>
     </nav>
 
     <div class="header-actions">
@@ -428,13 +427,38 @@
     </div>
 
     <div class="doc-nav-group">
-      <div class="doc-nav-title">IDE Capabilities</div>
-      <a href="#editor-guide" class="doc-link"><span class="material-symbols-outlined">edit_note</span>Tabbed Editor</a>
-      <a href="#code-runner" class="doc-link"><span class="material-symbols-outlined">play_circle</span>Code Runner & Terminal</a>
-      <a href="#shortcuts" class="doc-link"><span class="material-symbols-outlined">keyboard</span>Keyboard Shortcuts</a>
-      <a href="#ai-assistant" class="doc-link"><span class="material-symbols-outlined">smart_toy</span>Peach AI Assistant</a>
-    </div>
+    <div class="doc-nav-title">SmartIDE Features</div>
 
+    <a href="#centralized-workspace" class="doc-link">
+        <span class="material-symbols-outlined">workspace_premium</span>
+        Centralized Workspace
+    </a>
+
+    <a href="#unified-platform" class="doc-link">
+        <span class="material-symbols-outlined">web</span>
+        Unified Platform
+    </a>
+
+    <a href="#database-system" class="doc-link">
+        <span class="material-symbols-outlined">storage</span>
+        Built-In Databases
+    </a>
+
+    <a href="#live-preview" class="doc-link">
+        <span class="material-symbols-outlined">preview</span>
+        Rapid Live Previews
+    </a>
+
+    <a href="#monaco-editor" class="doc-link">
+        <span class="material-symbols-outlined">code</span>
+        Monaco Editor
+    </a>
+
+    <a href="#sql-console" class="doc-link">
+        <span class="material-symbols-outlined">database</span>
+        Integrated SQL Console
+    </a>
+</div>
     <div class="doc-nav-group">
       <div class="doc-nav-title">Support</div>
       <a href="#faq" class="doc-link"><span class="material-symbols-outlined">help</span>FAQ & Help</a>
@@ -511,75 +535,146 @@ sudo apt-get install -f # resolve any missing runtime libs</div>
       </div>
     </section>
 
-    <!-- Tabbed Editor -->
-    <section class="doc-section" id="editor-guide">
-      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">edit_note</span> Tabbed Code Editor</h2>
-      <p>
-        The editor supports multi-file tabs, line numbers gutter, and auto-indentation. Open any file from the left Explorer sidebar to edit. Unsaved changes are marked with an orange indicator on the tab.
-      </p>
-    </section>
+<!-- Centralized Workspace -->
+<section class="doc-section" id="centralized-workspace">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      workspace_premium
+    </span>
+    Centralized Workspace
+  </h2>
 
-    <!-- Code Runner -->
-    <section class="doc-section" id="code-runner">
-      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">play_circle</span> Code Runner & Integrated Terminal</h2>
-      <p>
-        Execute your Python files directly inside SmartIDE without leaving the application:
-      </p>
-      <ul style="margin-left: 20px; line-height: 1.8; color: var(--text-medium); font-size: 15px;">
-        <li>Click the top bar <strong>Run</strong> button or press <span class="key-badge">F5</span>.</li>
-        <li>Or type commands like <code>python main.py</code> in the bottom terminal prompt.</li>
-        <li>Output and stack traces appear instantly in the TERMINAL drawer.</li>
-      </ul>
-    </section>
+  <p>
+    SmartIDE combines multiple development tools into a single browser-based
+    platform. Developers can write code, manage files, work with databases,
+    preview applications, and deploy projects without switching between
+    multiple software tools.
+  </p>
+</section>
 
-    <!-- Shortcuts -->
-    <section class="doc-section" id="shortcuts">
-      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">keyboard</span> Desktop Keyboard Shortcuts</h2>
-      <table class="shortcut-table">
-        <thead>
-          <tr>
-            <th>Shortcut</th>
-            <th>Action</th>
-            <th>Context</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="key-badge">Ctrl + S</span> / <span class="key-badge">⌘ + S</span></td>
-            <td>Save active file to workspace</td>
-            <td>Code Editor</td>
-          </tr>
-          <tr>
-            <td><span class="key-badge">F5</span></td>
-            <td>Execute current script</td>
-            <td>Global</td>
-          </tr>
-          <tr>
-            <td><span class="key-badge">Ctrl + N</span></td>
-            <td>Create a new workspace file</td>
-            <td>Global</td>
-          </tr>
-          <tr>
-            <td><span class="key-badge">Tab</span></td>
-            <td>Indent 4 spaces</td>
-            <td>Code Editor</td>
-          </tr>
-          <tr>
-            <td><span class="key-badge">Ctrl + A</span></td>
-            <td>Select entire document</td>
-            <td>Code Editor</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+<!-- Unified Platform -->
+<section class="doc-section" id="unified-platform">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      web
+    </span>
+    Unified Platform
+  </h2>
 
-    <!-- AI Assistant -->
-    <section class="doc-section" id="ai-assistant">
-      <h2><span class="material-symbols-outlined" style="color:var(--peach-600);">smart_toy</span> Peach AI Assistant</h2>
-      <p>
-        Click the robot icon on the left Activity Bar to open the Peach AI drawer. You can request instant code explanations, syntax diagnostics, and boilerplate generation for functions and error handling.
-      </p>
-    </section>
+  <p>
+    SmartIDE provides a zero-installation development environment that reduces
+    setup complexity and enables users to start development immediately through
+    a unified interface.
+  </p>
+
+  <ul style="margin-left:20px; line-height:1.8; color:var(--text-medium); font-size:15px;">
+    <li>Single platform for development activities.</li>
+    <li>Reduced onboarding time for developers and students.</li>
+    <li>Accessible from modern web browsers.</li>
+    <li>Integrated development workflow.</li>
+  </ul>
+</section>
+
+<!-- Built-In Databases -->
+<section class="doc-section" id="database-system">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      storage
+    </span>
+    Built-In Databases
+  </h2>
+
+  <p>
+    SmartIDE includes integrated SQLite database support with SQLAlchemy ORM,
+    allowing users to create, manage, and interact with databases directly
+    inside the development environment.
+  </p>
+
+  <table class="shortcut-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>SQLite</td>
+        <td>Zero-configuration relational database support.</td>
+      </tr>
+
+      <tr>
+        <td>SQLAlchemy</td>
+        <td>ORM layer for simplified database operations.</td>
+      </tr>
+
+      <tr>
+        <td>Embedded Environment</td>
+        <td>Database setup without external installations.</td>
+      </tr>
+
+      <tr>
+        <td>Integrated Access</td>
+        <td>Direct database interaction from SmartIDE.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Rapid Live Previews -->
+<section class="doc-section" id="live-preview">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      preview
+    </span>
+    Rapid Live Previews
+  </h2>
+
+  <p>
+    SmartIDE provides instant visual feedback by displaying application changes
+    in real time. Developers can quickly test and validate updates without
+    repeatedly reloading or reconfiguring their projects.
+  </p>
+</section>
+
+<!-- Monaco Editor -->
+<section class="doc-section" id="monaco-editor">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      code
+    </span>
+    Monaco Editor
+  </h2>
+
+  <p>
+    SmartIDE uses the Monaco Editor to provide a VS Code-style coding
+    experience directly within the browser.
+  </p>
+
+  <ul style="margin-left:20px; line-height:1.8; color:var(--text-medium); font-size:15px;">
+    <li>VS Code-grade editing environment.</li>
+    <li>Syntax highlighting support.</li>
+    <li>Code editing and navigation tools.</li>
+    <li>Live interaction with project files.</li>
+  </ul>
+</section>
+
+<!-- Integrated SQL Console -->
+<section class="doc-section" id="sql-console">
+  <h2>
+    <span class="material-symbols-outlined" style="color:var(--peach-600);">
+      database
+    </span>
+    Integrated SQL Console
+  </h2>
+
+  <p>
+    The Integrated SQL Console enables developers to execute SQL queries,
+    inspect tables, manage schemas, and interact directly with project
+    databases without leaving SmartIDE.
+  </p>
+</section>
 
     <!-- FAQ -->
     <section class="doc-section" id="faq">
@@ -599,7 +694,7 @@ sudo apt-get install -f # resolve any missing runtime libs</div>
 <footer>
   <div class="footer-inner">
     <span>&copy; 2026 SmartIDE. All rights reserved.</span>
-    <span>Peach & White Documentation v2.4.1</span>
+    <span>v2.4.1</span>
   </div>
 </footer>
 

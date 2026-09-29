@@ -898,7 +898,7 @@
 <section class="hero">
   <div class="pill-badge">
     <div class="pulse-dot"></div>
-    SmartIDE v2.4.1 Desktop Edition — Peach & White Release
+    SmartIDE v2.4.1 Desktop Edition
   </div>
   
   <h1 class="hero-title">
@@ -958,21 +958,10 @@
       </a>
     </div>
 
-    <!-- Secondary browser launcher -->
-    <div class="web-launcher-bar">
-      <div class="web-launch-text">
-        <span class="material-symbols-outlined" style="color:var(--peach-500);">public</span>
-        Don't want to install locally? Try SmartIDE directly in your browser.
-      </div>
-      <a href="{{ url_for('dashboard') }}" class="web-launch-btn">
-        <span class="material-symbols-outlined" style="font-size:18px;">play_arrow</span>
-        Launch Web IDE Now
-      </a>
-    </div>
   </div>
 </section>
 
-<!-- Desktop IDE Interactive Showcase (Peach & White) -->
+<!-- Desktop IDE Interactive Showcase  -->
 <div class="mockup-container">
   <div class="ide-window">
     <!-- Window Bar -->
@@ -984,11 +973,11 @@
       </div>
       <div class="ide-window-title">
         <span class="material-symbols-outlined" style="font-size:14px; color:var(--peach-600);">code</span>
-        SmartIDE — workspace/main.py [Peach Theme]
+        SmartIDE — workspace/main.py 
       </div>
       <div class="ide-quick-actions">
         <span class="ide-tag">Python 3.14</span>
-        <a href="{{ url_for('dashboard') }}" style="text-decoration:none; color:var(--peach-600); font-size:12px; font-weight:700;">Open Full IDE &rarr;</a>
+        <a style="text-decoration:none; color:var(--peach-600); font-size:12px; font-weight:700;">Open Full IDE &rarr;</a>
       </div>
     </div>
 
@@ -1074,47 +1063,93 @@ Desktop-based Python Environment initialized.<br>
   </div>
 </div>
 
-<!-- Features Section -->
+<<!-- Features Section -->
 <section class="features-section">
-  <div class="section-head">
-    <h2>Engineered for Developers</h2>
-    <p>Everything you need in a modern desktop IDE without the heavy resource footprint.</p>
-  </div>
+    <div class="section-head">
+        <h2>SmartIDE Features</h2>
+        <p>
+            A unified cloud-based development environment designed to simplify coding,
+            database management, testing, and deployment.
+        </p>
+    </div>
 
-  <div class="features-grid">
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">speed</span></div>
-      <h3>Ultra-Fast Desktop Engine</h3>
-      <p>Instant startup and responsive multi-tab editing. Lightweight architecture that respects your system RAM.</p>
+    <div class="features-grid">
+
+        <!-- Unified Platform -->
+        <div class="feat-card">
+            <div class="feat-icon">
+                <span class="material-symbols-outlined">web</span>
+            </div>
+            <h3>Unified Platform</h3>
+            <p>
+                Delivers a zero-installation development environment that reduces
+                onboarding delays and allows users to start coding instantly.
+            </p>
+        </div>
+
+        <!-- Built-In Databases -->
+        <div class="feat-card">
+            <div class="feat-icon">
+                <span class="material-symbols-outlined">storage</span>
+            </div>
+            <h3>Built-In Databases</h3>
+            <p>
+                Embedded SQLite database support eliminates external setup
+                requirements and provides a ready-to-use data environment.
+            </p>
+        </div>
+
+        <!-- Rapid Live Previews -->
+        <div class="feat-card">
+            <div class="feat-icon">
+                <span class="material-symbols-outlined">preview</span>
+            </div>
+            <h3>Rapid Live Previews</h3>
+            <p>
+                Instantly view application changes and receive real-time visual
+                feedback while developing and testing projects.
+            </p>
+        </div>
+
+        <!-- Monaco Editor -->
+        <div class="feat-card">
+            <div class="feat-icon">
+                <span class="material-symbols-outlined">code</span>
+            </div>
+            <h3>Monaco Editor Integration</h3>
+            <p>
+                VS Code-grade editing experience with syntax highlighting,
+                intelligent code editing, and live workspace interaction.
+            </p>
+        </div>
+
+        <!-- Flask Backend -->
+<div class="feat-card">
+    <div class="feat-icon">
+        <span class="material-symbols-outlined">workspace_premium</span>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">palette</span></div>
-      <h3>Peach & White Aesthetics</h3>
-      <p>Curated soothing warm peach and crisp white theme designed to minimize eye fatigue during marathon coding sessions.</p>
+    <h3>Centralized Workspace</h3>
+    <p>
+        Combines multiple development tools into a single browser-based
+        platform, allowing developers to code, manage databases, test
+        applications, and deploy projects from one unified workspace.
+    </p>
+</div>
+
+        <!-- SQL Console -->
+        <div class="feat-card">
+            <div class="feat-icon">
+                <span class="material-symbols-outlined">database</span>
+            </div>
+            <h3>Integrated SQL Console</h3>
+            <p>
+                Directly query databases, manage schemas, and interact with
+                project data through a built-in SQL environment.
+            </p>
+        </div>
+
     </div>
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">play_circle</span></div>
-      <h3>Direct Python Runner</h3>
-      <p>Execute scripts with one click or through the integrated terminal with full real-time stdout and stderr output.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">smart_toy</span></div>
-      <h3>Built-in Peach AI Helper</h3>
-      <p>Ask for code explanations, detect runtime bugs, and generate clean boilerplate code without leaving your workspace.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">folder_managed</span></div>
-      <h3>Workspace File Manager</h3>
-      <p>Full project file tree management with live creation, editing, auto-save, and keyboard shortcuts like Ctrl+S.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon"><span class="material-symbols-outlined">devices</span></div>
-      <h3>True Cross-Platform</h3>
-      <p>Native pre-compiled packages for Windows (.exe), macOS (.dmg universal), and Linux (.deb / .AppImage).</p>
-    </div>
-  </div>
 </section>
-
 <!-- Download Modal -->
 <div class="modal-overlay" id="downloadModal">
   <div class="modal-box">
@@ -1159,7 +1194,7 @@ Desktop-based Python Environment initialized.<br>
       <h4>Product</h4>
       <a href="{{ url_for('features') }}">Features</a>
       <a href="{{ url_for('downloads') }}">Downloads</a>
-      <a href="{{ url_for('dashboard') }}">Web IDE</a>
+    
       <a href="{{ url_for('documentation') }}">Documentation</a>
     </div>
     <div class="foot-col">
@@ -1177,7 +1212,7 @@ Desktop-based Python Environment initialized.<br>
   </div>
   <div class="foot-bottom">
     <span>&copy; 2026 SmartIDE. All rights reserved.</span>
-    <span>v2.4.1 Peach & White Edition</span>
+    <span>v2.4.1 </span>
   </div>
 </footer>
 
