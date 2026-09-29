@@ -371,19 +371,60 @@
       padding: 50px 32px 30px;
       margin-left: 290px;
     }
-    .footer-inner {
+    .footer-grid {
       max-width: 960px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .foot-brand p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 16px;
+      max-width: 320px;
+      line-height: 1.6;
+    }
+    .foot-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .foot-col h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .foot-col a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .foot-col a:hover { color: var(--peach-primary); }
+    .foot-bottom {
+      max-width: 960px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     @media (max-width: 900px) {
       .doc-sidebar { display: none; }
       .doc-content { margin-left: 0; padding: 30px 20px 60px; }
       footer { margin-left: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
@@ -710,7 +751,34 @@ sudo apt-get install -f # resolve any missing runtime libs</div>
 
 <!-- Footer -->
 <footer>
-  <div class="footer-inner">
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <div class="logo">
+        <div class="logo-icon"><span class="material-symbols-outlined" style="font-size:20px;">terminal</span></div>
+        <span class="logo-text">SmartIDE</span>
+      </div>
+      <p>A unified, beautiful desktop development environment tailored in soothing Peach & White tones.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <a href="{{ url_for('features') }}">Features</a>
+      <a href="{{ url_for('downloads') }}">Downloads</a>
+      <a href="{{ url_for('documentation') }}">Documentation</a>
+    </div>
+    <div class="foot-col">
+      <h4>Platforms</h4>
+      <a href="{{ url_for('download_platform', platform='windows') }}">Windows (x64)</a>
+      <a href="{{ url_for('download_platform', platform='mac') }}">macOS (Apple Silicon & Intel)</a>
+      <a href="{{ url_for('download_platform', platform='linux') }}">Linux (deb / AppImage)</a>
+    </div>
+    <div class="foot-col">
+      <h4>Account</h4>
+      <a href="{{ url_for('login') }}">Sign In</a>
+      <a href="{{ url_for('register') }}">Create Account</a>
+      <a href="{{ url_for('documentation') }}">Support Guide</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
     <span>&copy; 2026 SmartIDE. All rights reserved.</span>
     <span>v2.4.1</span>
   </div>
