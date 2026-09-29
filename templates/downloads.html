@@ -426,12 +426,17 @@
     </a>
     
     <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
       <a href="{{ url_for('features') }}">Features</a>
       <a href="{{ url_for('documentation') }}">Documentation</a>
       <a href="{{ url_for('downloads') }}" class="active">Downloads</a>
     </nav>
 
     <div class="header-actions">
+      <a href="{{ url_for('dashboard') }}" class="btn-ghost" style="display:inline-flex; align-items:center; gap:6px;">
+        <span class="material-symbols-outlined" style="font-size:16px;">space_dashboard</span>Dashboard
+      </a>
       {% if session.get('user_name') %}
         <a href="{{ url_for('dashboard') }}" class="btn-ghost">{{ session['user_name'] }}</a>
         <a href="{{ url_for('logout') }}" class="btn-ghost">Sign Out</a>
@@ -442,6 +447,12 @@
     </div>
   </div>
 </header>
+
+<!-- Floating Pixel Mascot Decoration -->
+<div class="floating-mascot-container floating-mascot-top-right" title="Smartie Download Helper">
+  <div class="mascot-speech-bubble">Download SmartIDE Desktop! 🍑</div>
+  <img src="{{ url_for('static', filename='images/pixel_mascot.svg') }}" class="floating-mascot-img" alt="SmartIDE Mascot">
+</div>
 
 <!-- Hero Section -->
 <section class="dl-hero">

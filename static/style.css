@@ -1,13 +1,8 @@
-/* SmartIDE Design System — Peach & White Desktop Theme */
+/* SmartIDE Design System — Peach & White + Peach & Black Desktop Theme */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette: Peach & White */
-  --bg-primary: #ffffff;
-  --bg-secondary: #fffaf6;
-  --bg-tertiary: #fff4ec;
-  --bg-elevated: #ffffff;
-  
+  /* Peach Palette */
   --peach-50: #fff9f5;
   --peach-100: #fff0e6;
   --peach-200: #ffe4d2;
@@ -18,34 +13,23 @@
   --peach-700: #d64508;
   --coral: #ff6565;
 
-  /* Text & Neutral Colors */
-  --text-primary: #2b1810;
-  --text-secondary: #5e3a2b;
-  --text-muted: #966b58;
-  --text-subtle: #c7a494;
+  /* Peach & White Theme (Light Mode) */
+  --bg-white-primary: #fffdfb;
+  --bg-white-card: #ffffff;
+  --text-white-dark: #2b1810;
+  --text-white-medium: #613c2c;
+  --border-white-peach: rgba(255, 120, 54, 0.18);
+  --shadow-white-peach: 0 12px 36px rgba(240, 90, 24, 0.08);
 
-  /* Borders & Dividers */
-  --border-subtle: rgba(255, 120, 54, 0.12);
-  --border-medium: rgba(255, 120, 54, 0.22);
-  --border-strong: rgba(255, 120, 54, 0.40);
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(230, 85, 20, 0.06);
-  --shadow-md: 0 8px 24px rgba(230, 85, 20, 0.08);
-  --shadow-lg: 0 16px 48px rgba(230, 85, 20, 0.12);
-  --shadow-glow: 0 0 30px rgba(255, 120, 54, 0.25);
-
-  /* IDE Specific Tokens (Peach Light Desktop Theme) */
-  --ide-titlebar-bg: #fffbf8;
-  --ide-menubar-bg: #ffffff;
-  --ide-activitybar-bg: #fff5ee;
-  --ide-sidebar-bg: #fff9f5;
-  --ide-tab-bg: #fdf5ef;
-  --ide-tab-active-bg: #ffffff;
-  --ide-editor-bg: #ffffff;
-  --ide-line-num: #caa390;
-  --ide-terminal-bg: #fef7f2;
-  --ide-statusbar-bg: #f05a18;
+  /* Peach & Black Theme (Dark Mode) */
+  --bg-black-primary: #0e0c0d;
+  --bg-black-secondary: #141012;
+  --bg-black-card: #1c1619;
+  --bg-black-card-hover: #261f23;
+  --text-black-light: #fef5f0;
+  --text-black-muted: #d4a895;
+  --border-black-peach: rgba(255, 120, 54, 0.28);
+  --shadow-black-peach: 0 12px 40px rgba(255, 120, 54, 0.15);
 }
 
 * {
@@ -56,8 +40,6 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -72,25 +54,92 @@ code, pre, .font-mono {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-tertiary);
+  background: rgba(255, 120, 54, 0.05);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--peach-300);
+  background: var(--peach-400);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--peach-400);
+  background: var(--peach-500);
 }
 
-/* Utility Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Floating Pixel Mascot Animations & Styling */
+.floating-mascot-container {
+  position: fixed;
+  z-index: 99;
+  pointer-events: auto;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+.floating-mascot-container:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.floating-mascot-img {
+  width: 48px;
+  height: 40px;
+  filter: drop-shadow(0 6px 12px rgba(240, 90, 24, 0.35));
+  animation: floatMascot 4s ease-in-out infinite alternate;
+  image-rendering: pixelated;
+}
+
+.floating-mascot-top-right {
+  top: 90px;
+  right: 28px;
+}
+
+.floating-mascot-bottom-left {
+  bottom: 30px;
+  left: 28px;
+}
+
+.mascot-speech-bubble {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #2b1810;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border: 1.5px solid var(--peach-400);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+.floating-mascot-container:hover .mascot-speech-bubble {
+  opacity: 1;
+  visibility: visible;
+  bottom: 120%;
+}
+
+.mascot-speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+@keyframes floatMascot {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-3deg); }
+  100% { transform: translateY(5px) rotate(3deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 120, 54, 0.2); }
+  50% { box-shadow: 0 0 35px rgba(255, 120, 54, 0.5); }
 }
 
 /* Toast Notifications */
@@ -100,13 +149,18 @@ code, pre, .font-mono {
   right: 24px;
   z-index: 9999;
   background: #ffffff;
-  color: var(--text-primary);
+  color: var(--text-white-dark);
   border: 1.5px solid var(--peach-400);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
   padding: 14px 20px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
   animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }

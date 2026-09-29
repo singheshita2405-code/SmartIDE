@@ -621,11 +621,14 @@
     <button class="top-btn run-btn" onclick="executeCurrentCode()" title="Run Script (F5)">
       <span class="material-symbols-outlined" style="font-size:15px;">play_arrow</span> Run
     </button>
+    <a href="{{ url_for('about') }}" class="top-btn" title="About SmartIDE">
+      <span class="material-symbols-outlined" style="font-size:15px;">info</span> About
+    </a>
+    <a href="{{ url_for('home') }}" class="top-btn" title="Go to Home Page">
+      <span class="material-symbols-outlined" style="font-size:15px;">home</span> Home
+    </a>
     <a href="{{ url_for('documentation') }}" class="top-btn" title="Documentation">
       <span class="material-symbols-outlined" style="font-size:15px;">help_outline</span> Docs
-    </a>
-    <a href="{{ url_for('home') }}" class="top-btn" title="Go to Launching Page">
-      <span class="material-symbols-outlined" style="font-size:15px;">home</span> Home
     </a>
   </div>
 </div>
@@ -683,8 +686,9 @@
   <div class="menu-item" id="menuHelp">
     <span class="menu-trigger" onclick="toggleMenu('menuHelp')">Help</span>
     <div class="dropdown-menu">
+      <div class="dropdown-row" onclick="location.href='{{ url_for('about') }}'"><span>About SmartIDE</span></div>
+      <div class="dropdown-row" onclick="location.href='{{ url_for('home') }}'"><span>Home Page</span></div>
       <div class="dropdown-row" onclick="location.href='{{ url_for('documentation') }}'"><span>Documentation</span></div>
-      <div class="dropdown-row" onclick="showAboutDialog()"><span>About SmartIDE</span></div>
     </div>
   </div>
 </div>

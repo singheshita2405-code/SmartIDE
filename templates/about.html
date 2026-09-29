@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About SmartIDE — Modern Desktop IDE | Peach & Black Edition</title>
+  <meta name="description"
+    content="Learn about SmartIDE, the ultra-fast desktop IDE built with a high-contrast Peach & Black theme, lightweight Python runner, and zero-distraction workflow.">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0e0c0d;
+      --bg-dark-secondary: #141012;
+      --card-dark: #191417;
+      --card-dark-hover: #231b1f;
+      --peach-primary: #ff7836;
+      --peach-light: #ffa87a;
+      --peach-glow: rgba(255, 120, 54, 0.25);
+      --border-dark-peach: rgba(255, 120, 54, 0.22);
+      --text-main: #fef6f2;
+      --text-muted: #d6aba0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Radial Glowing Background */
+    .bg-animated {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 0%, #28171d 0%, #0e0c0d 65%);
+      pointer-events: none;
+    }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      animation: blobFloat 14s ease-in-out infinite alternate;
+    }
+
+    .blob-1 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #ff7836, #d64508);
+      top: -150px;
+      left: -100px;
+    }
+
+    .blob-2 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #ffa574, #f05a18);
+      bottom: 10%;
+      right: -100px;
+      animation-delay: 5s;
+    }
+
+    @keyframes blobFloat {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(40px, -30px) scale(1.08);
+      }
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(14, 12, 13, 0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-dark-peach);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ffa574, #f05a18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 0 20px rgba(240, 90, 24, 0.4);
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #ffa87a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 120, 54, 0.18);
+      color: #ffa87a;
+      border: 1px solid rgba(255, 120, 54, 0.3);
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+      position: relative;
+      padding: 4px 0;
+    }
+
+    nav a.active,
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffa574, #f05a18);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fef5f0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-dark-peach);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 120, 54, 0.15);
+      border-color: var(--peach-primary);
+      color: #ffffff;
+    }
+
+    .btn-primary {
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff7836, #d64508);
+      border: none;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(240, 90, 24, 0.4);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(240, 90, 24, 0.55);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 1;
+      padding-top: 100px;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 120, 54, 0.12);
+      border: 1px solid rgba(255, 120, 54, 0.3);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--peach-light);
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 40%, #ffa87a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--peach-primary);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    /* Grid Layouts & Cards */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 90px;
+      align-items: center;
+    }
+
+    .intro-card {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .intro-card:hover {
+      border-color: var(--peach-primary);
+      transform: translateY(-4px);
+    }
+
+    .intro-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .intro-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Key Features Cards (5 Core Features) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 90px;
+    }
+
+    .feature-card {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #ff7836, #ffa87a);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 120, 54, 0.5);
+      background: var(--card-dark-hover);
+      box-shadow: 0 16px 40px rgba(255, 120, 54, 0.12);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-box {
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 120, 54, 0.12);
+      border: 1px solid rgba(255, 120, 54, 0.25);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--peach-primary);
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Tech Stack Section */
+    .tech-stack-container {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 24px;
+      padding: 48px;
+      margin-bottom: 90px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .tech-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 120, 54, 0.14);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .tech-item:hover {
+      background: rgba(255, 120, 54, 0.1);
+      border-color: var(--peach-primary);
+      transform: translateY(-4px);
+    }
+
+    .tech-item span.material-symbols-outlined {
+      font-size: 36px;
+      color: var(--peach-primary);
+      margin-bottom: 12px;
+    }
+
+    .tech-item h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .tech-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* How SmartIDE Works Timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 90px;
+      position: relative;
+    }
+
+    .timeline-step {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 20px;
+      padding: 32px 24px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #ff7836, #d64508);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .timeline-step h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .timeline-step p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Project Vision Section */
+    .vision-banner {
+      background: linear-gradient(135deg, #1f171b 0%, #151013 100%);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 24px;
+      padding: 56px;
+      margin-bottom: 90px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .vision-content h3 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    .vision-content p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .vision-list {
+      list-style: none;
+    }
+
+    .vision-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .vision-list span {
+      color: var(--peach-primary);
+    }
+
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 90px;
+    }
+
+    .team-card {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--peach-primary);
+      box-shadow: 0 16px 36px rgba(255, 120, 54, 0.15);
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffa87a, #ff7836);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(240, 90, 24, 0.3);
+    }
+
+    .team-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .team-card .role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--peach-light);
+      margin-bottom: 14px;
+    }
+
+    .team-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* GitHub Section */
+    .github-cta {
+      background: radial-gradient(circle at 50% 50%, #291a1d 0%, #171114 100%);
+      border: 1px solid var(--border-dark-peach);
+      border-radius: 24px;
+      padding: 56px;
+      text-align: center;
+      margin-bottom: 90px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .github-cta h3 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .github-cta p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    /* Footer */
+    footer {
+      background: #080607;
+      border-top: 1px solid var(--border-dark-peach);
+      padding: 60px 0 40px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 16px;
+      max-width: 320px;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--peach-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated Glowing Background -->
+  <div class="bg-animated">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+  </div>
+
+  <!-- Decorative Floating Pixel Mascot (Attached Image Reference) -->
+  <div class="floating-mascot-container floating-mascot-top-right" title="Click to greet Smartie!">
+    <div class="mascot-speech-bubble">Hi! Welcome to About SmartIDE 🍑</div>
+    <img src="{{ url_for('static', filename='images/pixel_mascot.svg') }}" class="floating-mascot-img"
+      alt="SmartIDE Pixel Mascot">
+  </div>
+
+  <div class="floating-mascot-container floating-mascot-bottom-left" style="bottom: 120px; left: 30px;"
+    title="Smartie Pixel Helper">
+    <div class="mascot-speech-bubble">Peach & Black Theme Active! ⚡</div>
+    <img src="{{ url_for('static', filename='images/pixel_mascot.svg') }}" class="floating-mascot-img"
+      alt="SmartIDE Mascot">
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="header-inner">
+      <a href="{{ url_for('home') }}" class="logo">
+        <div class="logo-icon">
+          <span class="material-symbols-outlined">terminal</span>
+        </div>
+        <span class="logo-text">SmartIDE</span>
+
+      </a>
+
+      <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}" class="active">About</a>
+        <a href="{{ url_for('features') }}">Features</a>
+        <a href="{{ url_for('documentation') }}">Documentation</a>
+        <a href="{{ url_for('downloads') }}">Downloads</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="{{ url_for('login') }}" class="btn-secondary">Sign In</a>
+        <a href="{{ url_for('dashboard') }}" class="btn-primary">
+          <span class="material-symbols-outlined" style="font-size: 18px;">rocket_launch</span>
+          Launch Web IDE
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main>
+    <div class="container">
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-badge">
+          <span class="material-symbols-outlined" style="font-size: 16px;">auto_awesome</span>
+          ABOUT SMARTIDE • PEACH & BLACK EDITION
+        </div>
+        <h1>Next-Generation Desktop IDE for Instant Productivity</h1>
+        <p>
+          SmartIDE combines high-performance Python code execution, lightweight resource usage, and clean aesthetic
+          design to provide developers with a seamless coding environment on Windows, macOS, and Linux.
+        </p>
+        <div class="hero-buttons">
+          <a href="{{ url_for('dashboard') }}" class="btn-primary" style="padding: 12px 28px; font-size: 16px;">
+            <span class="material-symbols-outlined">play_arrow</span>
+            Try Online IDE Now
+          </a>
+          <a href="https://github.com" target="_blank" class="btn-secondary"
+            style="padding: 12px 24px; font-size: 15px;">
+            <span class="material-symbols-outlined" style="font-size: 20px;">code</span>
+            Explore Source Code
+          </a>
+        </div>
+      </section>
+
+      <!-- SmartIDE Introduction -->
+      <div class="intro-grid">
+        <div class="intro-card">
+          <h3>
+            <span class="material-symbols-outlined" style="color: var(--peach-primary);">lightbulb</span>
+            What is SmartIDE?
+          </h3>
+          <p>
+            SmartIDE was crafted with a single objective: to eliminate bloated load times and cluttered user interfaces
+            found in modern IDEs while retaining essential desktop power tools.
+          </p>
+          <p>
+            With native workspace management, isolated code execution, and high-contrast Peach & White / Peach & Black
+            alternate themes, developers can focus on pure logic without distraction.
+          </p>
+        </div>
+
+        <div class="intro-card">
+          <h3>
+            <span class="material-symbols-outlined" style="color: var(--peach-primary);">bolt</span>
+            Built For Speed & Focus
+          </h3>
+          <p>
+            Traditional IDEs consume gigabytes of memory before you even type line one. SmartIDE launches under 500
+            milliseconds and runs entirely in a lightweight environment with zero background telemetry.
+          </p>
+          <p>
+            Whether you are testing Python algorithms, crafting web scripts, or learning to code, SmartIDE delivers
+            instant feedback with integrated execution sandbox technology.
+          </p>
+        </div>
+      </div>
+
+      <!-- Key Features Section (Code Editor, File Management, Project Management, Code Execution, Customization) -->
+      <div class="section-header">
+        <div class="section-subtitle">CORE CAPABILITIES</div>
+        <h2 class="section-title">Key SmartIDE Features</h2>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1: Code Editor -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">edit_note</span>
+          </div>
+          <h3>1. Code Editor</h3>
+          <p>
+            Feature-packed editor with line numbering, automatic syntax highlight, tab indentation, bracket matching,
+            and smooth cursor movement for frictionless typing.
+          </p>
+        </div>
+
+        <!-- Feature 2: File Management -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">folder_open</span>
+          </div>
+          <h3>2. File Management</h3>
+          <p>
+            Integrated file browser tree enabling instant file creation, renaming, deleting, and auto-saving directly in
+            your local desktop workspace directory.
+          </p>
+        </div>
+
+        <!-- Feature 3: Project Management -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">account_tree</span>
+          </div>
+          <h3>3. Project Management</h3>
+          <p>
+            Organize multi-file projects effortlessly. SmartIDE tracks active sessions, restores last opened files, and
+            initializes clean starter templates automatically.
+          </p>
+        </div>
+
+        <!-- Feature 4: Code Execution -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">terminal</span>
+          </div>
+          <h3>4. Code Execution</h3>
+          <p>
+            Subprocess-isolated execution engine running your Python scripts in real-time with line-by-line stdout,
+            stderr capture, and exit code reporting.
+          </p>
+        </div>
+
+        <!-- Feature 5: Customization -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">palette</span>
+          </div>
+          <h3>5. Customization</h3>
+          <p>
+            Switch effortlessly between Peach & White light mode and Peach & Black dark mode. Customize font size,
+            layout splitters, and keyboard shortcuts.
+          </p>
+        </div>
+
+        <!-- Feature 6: AI & Tools -->
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <span class="material-symbols-outlined">psychology</span>
+          </div>
+          <h3>6. AI Assistant Ready</h3>
+          <p>
+            Built-in AI prompt helper designed to summarize error tracebacks, generate docstrings, and recommend code
+            optimizations directly inside the editor panel.
+          </p>
+        </div>
+      </div>
+
+      <!-- Technology Stack -->
+      <div class="tech-stack-container">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-subtitle">ARCHITECTURE</div>
+          <h2 class="section-title">Technology Stack</h2>
+        </div>
+        <p style="text-align: center; color: var(--text-muted); max-width: 680px; margin: 0 auto 36px;">
+          SmartIDE is built on a resilient, modern technology stack that pairs Python backend efficiency with reactive
+          frontend web technologies.
+        </p>
+
+        <div class="tech-grid">
+          <div class="tech-item">
+            <span class="material-symbols-outlined">code_blocks</span>
+            <h4>Python & Flask</h4>
+            <p>High-performance backend API handling routing, security, and subprocess execution.</p>
+          </div>
+
+          <div class="tech-item">
+            <span class="material-symbols-outlined">css</span>
+            <h4>Vanilla CSS System</h4>
+            <p>Zero utility framework overhead with bespoke HSL color tokens and GPU animations.</p>
+          </div>
+
+          <div class="tech-item">
+            <span class="material-symbols-outlined">database</span>
+            <h4>SQLite Storage</h4>
+            <p>Embedded lightweight database for user credentials and local workspace configurations.</p>
+          </div>
+
+          <div class="tech-item">
+            <span class="material-symbols-outlined">memory</span>
+            <h4>Subprocess Sandbox</h4>
+            <p>Isolated execution runtime ensuring safe execution with timeout safeguards.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How SmartIDE Works Timeline -->
+      <div class="section-header">
+        <div class="section-subtitle">WORKFLOW</div>
+        <h2 class="section-title">How SmartIDE Works</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <h4>Launch Environment</h4>
+          <p>Open SmartIDE on desktop or browser. Your workspace directory initializes instantly with starter files.</p>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <h4>Write & Edit Code</h4>
+          <p>Use the multi-tab code editor with syntax highlighting, auto-indentation, and auto-save capabilities.</p>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <h4>Execute Code</h4>
+          <p>Press <code>Ctrl + S</code> or click Run Code. SmartIDE passes your file to the isolated execution process.
+          </p>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <h4>Review Output</h4>
+          <p>Observe live program output, stdout logs, and execution times in the interactive bottom terminal panel.</p>
+        </div>
+      </div>
+
+      <!-- Project Vision Section -->
+      <div class="vision-banner">
+        <div class="vision-content">
+          <h3>Our Vision for Desktop Development</h3>
+          <p>
+            We believe software development tools should feel fast, responsive, and aesthetically inspiring. Development
+            environments should adapt to developers, not the other way around.
+          </p>
+          <ul class="vision-list">
+            <li><span class="material-symbols-outlined">check_circle</span> 100% Free & Open Source Core</li>
+            <li><span class="material-symbols-outlined">check_circle</span> Zero Tracking or Data Telemetry</li>
+            <li><span class="material-symbols-outlined">check_circle</span> Offline-first Local Execution</li>
+            <li><span class="material-symbols-outlined">check_circle</span> Cross-Platform Native Installers</li>
+          </ul>
+        </div>
+        <div style="text-align: center;">
+          <img src="{{ url_for('static', filename='images/pixel_mascot.svg') }}"
+            style="width: 140px; height: 120px; filter: drop-shadow(0 0 30px rgba(255,120,54,0.5)); image-rendering: pixelated; animation: floatMascot 3s ease-in-out infinite alternate;"
+            alt="Vision Mascot">
+          <p style="margin-top: 16px; font-weight: 700; color: var(--peach-light); font-size: 14px;">"Crafted with love
+            for developers."</p>
+        </div>
+      </div>
+
+
+      <!-- GitHub Callout Section -->
+      <div class="github-cta">
+        <span class="material-symbols-outlined"
+          style="font-size: 48px; color: var(--peach-primary); margin-bottom: 16px;">code_blocks</span>
+        <h3>Star SmartIDE on GitHub</h3>
+        <p>SmartIDE is open-source and community driven. Join developers worldwide in building the cleanest desktop IDE.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px;">
+          <a href="https://github.com" target="_blank" class="btn-primary" style="padding: 12px 28px; font-size: 16px;">
+            <span class="material-symbols-outlined">star</span>
+            Star on GitHub (v2.4.1)
+          </a>
+          <a href="{{ url_for('downloads') }}" class="btn-secondary" style="padding: 12px 24px; font-size: 15px;">
+            <span class="material-symbols-outlined">download</span>
+            Download Desktop Release
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="{{ url_for('home') }}" class="logo">
+            <div class="logo-icon">
+              <span class="material-symbols-outlined">terminal</span>
+            </div>
+            <span class="logo-text">SmartIDE</span>
+          </a>
+          <p>
+            The modern peach-themed desktop IDE for rapid Python coding, file management, and instant code execution.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('features') }}">Features</a></li>
+            <li><a href="{{ url_for('documentation') }}">Documentation</a></li>
+            <li><a href="{{ url_for('downloads') }}">Downloads</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="{{ url_for('dashboard') }}">Web Dashboard</a></li>
+            <li><a href="{{ url_for('downloads') }}">Windows Installer</a></li>
+            <li><a href="{{ url_for('downloads') }}">macOS Package</a></li>
+            <li><a href="{{ url_for('downloads') }}">Linux .deb</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="https://github.com" target="_blank">GitHub Repository</a></li>
+            <li><a href="{{ url_for('documentation') }}">API Docs</a></li>
+            <li><a href="{{ url_for('register') }}">Create Account</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 SmartIDE Software. All rights reserved. Peach & Black Edition.</p>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; display: inline-block;"></span>
+          <span>All Systems Operational • Desktop v2.4.1</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
