@@ -1,3 +1,4 @@
+from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,6 +24,27 @@ class User(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+
+
+def login_required(f):
+    """Decorator to require session authentication for protected page routes."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('user_id'):
+            flash('Please sign in to access the dashboard.', 'error')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def api_login_required(f):
+    """Decorator to require session authentication for protected API endpoints."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('user_id'):
+            return jsonify({'success': False, 'error': 'Authentication required. Please sign in.'}), 401
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 def init_workspace():
@@ -126,6 +148,7 @@ def downloads():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
@@ -226,12 +249,14 @@ def login():
 def logout():
     session.clear()
     flash('You have been successfully signed out.', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
+
 
 
 # ---------------- WORKSPACE FILE APIS ----------------
 
 @app.route('/api/files', methods=['GET'])
+@api_login_required
 def list_workspace_files():
     """List all files in the workspace directory."""
     try:
@@ -253,6 +278,7 @@ def list_workspace_files():
 
 
 @app.route('/api/get-file', methods=['POST'])
+@api_login_required
 def get_file():
     """Read and return content of a file in workspace."""
     data = request.get_json(silent=True) or {}
@@ -269,6 +295,7 @@ def get_file():
 
 
 @app.route('/api/save-file', methods=['POST'])
+@api_login_required
 def save_file():
     """Save content to a workspace file."""
     data = request.get_json(silent=True) or {}
@@ -284,6 +311,7 @@ def save_file():
 
 
 @app.route('/api/new-file', methods=['POST'])
+@api_login_required
 def new_file():
     """Create a new file in workspace."""
     data = request.get_json(silent=True) or {}
@@ -305,6 +333,7 @@ def new_file():
 
 
 @app.route('/api/delete-file', methods=['POST'])
+@api_login_required
 def delete_file():
     """Delete a file from workspace."""
     data = request.get_json(silent=True) or {}
@@ -325,6 +354,7 @@ def delete_file():
 # ---------------- CODE EXECUTION API ----------------
 
 @app.route('/run-code', methods=['POST'])
+@api_login_required
 def run_code():
     """Execute Python code or scripts within workspace and return stdout/stderr."""
     data = request.get_json(silent=True) or {}

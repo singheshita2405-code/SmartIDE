@@ -357,9 +357,17 @@
       <a href="{{ url_for('dashboard') }}" class="btn-ghost" style="display:inline-flex; align-items:center; gap:6px;">
         <span class="material-symbols-outlined" style="font-size:16px;">space_dashboard</span>Dashboard
       </a>
-      {% if session.get('user_name') %}
-        <a href="{{ url_for('dashboard') }}" class="btn-ghost">{{ session['user_name'] }}</a>
-        <a href="{{ url_for('logout') }}" class="btn-ghost">Sign Out</a>
+      {% if session.get('user_id') %}
+        <div class="user-profile-badge" style="display:inline-flex; align-items:center; gap:8px;">
+          <span class="btn-ghost" style="display:inline-flex; align-items:center; gap:6px; cursor:default; background:rgba(255, 120, 54, 0.12); border-radius:20px; padding:4px 12px; font-weight:600; color:var(--peach-700);">
+            <span class="material-symbols-outlined" style="font-size:18px; color:var(--peach-600);">account_circle</span>
+            <span>{{ session.get('user_name') }}</span>
+            <span style="font-size:11px; background:var(--peach-500); color:white; padding:1px 6px; border-radius:10px; font-weight:700;">ID: #{{ session.get('user_id') }}</span>
+          </span>
+          <a href="{{ url_for('logout') }}" class="btn-ghost" style="display:inline-flex; align-items:center; gap:4px; color:var(--peach-700);">
+            <span class="material-symbols-outlined" style="font-size:16px;">logout</span>Sign Out
+          </a>
+        </div>
       {% else %}
         <a href="{{ url_for('login') }}" class="btn-ghost">Sign In</a>
         <a href="{{ url_for('register') }}" class="btn-cta">Get Started</a>

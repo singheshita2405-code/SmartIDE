@@ -291,13 +291,23 @@
     <span class="material-symbols-outlined" style="color:var(--peach-600);">terminal</span>
     <span style="font-weight:800; font-size:18px; color:var(--text-dark);">SmartIDE</span>
   </a>
-  <div style="display:flex; gap:20px; font-size:14px; font-weight:600;">
+  <div style="display:flex; gap:18px; font-size:14px; font-weight:600; align-items:center;">
     <a href="{{ url_for('home') }}" style="color:var(--text-medium); text-decoration:none;">Home</a>
     <a href="{{ url_for('about') }}" style="color:var(--text-medium); text-decoration:none;">About</a>
     <a href="{{ url_for('features') }}" style="color:var(--text-medium); text-decoration:none;">Features</a>
     <a href="{{ url_for('documentation') }}" style="color:var(--text-medium); text-decoration:none;">Documentation</a>
     <a href="{{ url_for('downloads') }}" style="color:var(--text-medium); text-decoration:none;">Downloads</a>
     <a href="{{ url_for('dashboard') }}" style="color:var(--text-medium); text-decoration:none;">Dashboard</a>
+    {% if session.get('user_id') %}
+      <span style="display:inline-flex; align-items:center; gap:6px; background:rgba(255, 120, 54, 0.12); padding:4px 10px; border-radius:16px; font-size:13px; color:var(--text-dark);">
+        <span class="material-symbols-outlined" style="font-size:16px; color:var(--peach-600);">account_circle</span>
+        <span>{{ session.get('user_name') }}</span>
+        <span style="font-size:10px; background:var(--peach-500); color:white; padding:1px 5px; border-radius:8px; font-weight:700;">ID: #{{ session.get('user_id') }}</span>
+      </span>
+      <a href="{{ url_for('logout') }}" style="color:var(--peach-700); text-decoration:none; display:inline-flex; align-items:center; gap:3px;">
+        <span class="material-symbols-outlined" style="font-size:16px;">logout</span>Sign Out
+      </a>
+    {% endif %}
   </div>
 </div>
 
